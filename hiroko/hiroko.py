@@ -1,9 +1,9 @@
 from collections import namedtuple
+from interface.regulator import UserEntryRegulator
 import numpy as np
+import itertools
 import random
-import argparse
 import csv
-import sys
 import os
 
 
@@ -37,37 +37,47 @@ def loadBigInfo(csv_reader_out):
 
 
 def generateRandomGenomePopulation(genome_alloc, clients):
-    clients_cnt = list(range(len(clients)))
-    for i in range(100):
-        random.shuffle(clients_cnt)
-
-    genome = [0] * len(genome_alloc)
-    acum = 0
-    for i in range(len(genome_alloc)):
-        acum += genome_alloc[i]
-        genome[i] = clients_cnt[acum - genome_alloc[i]:acum]
+    genome = list(itertools.chain(*[[i + 1] * genome_alloc[i] for i in range(len(genome_alloc))]))
+    for i in range(3):
+        random.shuffle(genome)
     return genome
 
 
 def calculateStandardDeviation(population, cli_little_info):
-    total_revisions = [sum(cli_little_info[i] for i in j) for j in population]
-    print(total_revisions)
+    days = set(population)
+    total_revisions = [
+        sum(cli_little_info[i] for i in range(len(population)) if population[i] == d)
+        for d in days]
     return np.std(total_revisions)
 
 
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
-    parser.add_argument('-d', help='Days to distribute the revisions.')
+def generateLocationMap(perimeter_info):
+    alist = list()
+    blist = list()
+    for info in perimeter_info:
+        if info[0] in alist:
+            blist[alist.index(info[0])].append([int(info[1]), int(info[2])])
+        else:
+            alist.append(info[0])
+            blist.append([[int(info[1]), int(info[2])]])
+    locmap = [np.array(i) for i in blist]
+    locmap = [(
+        np.sum(i.transpose()[0]) // len(i.transpose()[0]),
+        np.sum(i.transpose()[1]) // len(i.transpose()[1])) for i in locmap]
 
-    # Validate day number
-    days = parser.parse_args().d
-    try:
-        days = int(days)
-        if days < 10 or days > 20:
-            raise Exception
-    except Exception:
-        print('Day number must be an integer between 10 and 20, inclusive.')
-        sys.exit(1)
+    relational_locmap = {k: v for k, v in zip(alist, locmap)}
+    return relational_locmap
+
+
+if __name__ == '__main__':
+    entry_regulator = UserEntryRegulator()
+    rule_book = entry_regulator.fetchRuleBook()
+
+    # We need to now the number of days in which the neighborhoods will be distributed,
+    # also if the snapshot date of the file is not the same as the python saved date
+    # minimum deviation and minimum distance will need to be recalculated
+    entry_regulator.isRuleBookUpdated()
+    days = 20
 
     # Read neighborhood data (only clients)
     cc = csvRead('neighborhood_description.csv')
@@ -75,6 +85,10 @@ if __name__ == '__main__':
 
     # Read full neighborhood data
     neighborhoods_data = loadBigInfo(cc)
+
+    # Create location map
+    per = csvRead('neighborhood_nodes.csv')
+    locmap = generateLocationMap(per)
 
     # Days distribution
     d_distribution = len(clients) // days
@@ -86,6 +100,5 @@ if __name__ == '__main__':
         genoma_alloc[i] += 1
 
     # Produce random genome
-    for i in range(100):
-        population = generateRandomGenomePopulation(genoma_alloc, clients)
-        print(calculateStandardDeviation(population, clients))
+    population = generateRandomGenomePopulation(genoma_alloc, clients)
+    print(calculateStandardDeviation(population, clients))
