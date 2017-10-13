@@ -1,4 +1,5 @@
 import argparse
+import time
 import json
 import sys
 import os
@@ -74,6 +75,12 @@ class UserEntryRegulator:
         else:
             print('>> Config files are in sync!')
             return True
+
+    def updateRuleBook(self, new_rule_book):
+        self._rule_book = new_rule_book
+        self._rule_book['last-system-snapshot-date'] = int(time.time())
+        with open(UserEntryRegulator.PTH + UserEntryRegulator.CONFIG_FILE, 'wb') as jfile:
+            jfile.write(json.dumps(self._rule_book, sort_keys=True, indent=4).encode('utf8'))
 
     def fetchRuleBook(self):
         return self._rule_book

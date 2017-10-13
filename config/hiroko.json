@@ -1,6 +1,8 @@
 {
-    "last-system-snapshot-date": 0,
+    "day-count": 20,
+    "last-system-snapshot-date": 1507901666,
+    "max-deviation": 0,
+    "max-distance": 0,
     "min-deviation": 0,
-    "min-distance": 0,
-    "day-count": 10
+    "min-distance": 0
 }
