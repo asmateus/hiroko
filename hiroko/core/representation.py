@@ -3,6 +3,7 @@
     You can specify the desired output type.
 '''
 from collections import namedtuple
+from core.evolvement import ComposedNaturalEvolution
 from interface.CSVManager import csvRead
 import numpy as np
 
@@ -92,11 +93,23 @@ class PetriGlass:
         # Persistent system wide rule book
         self._persistent_rule_book = None
 
+    def getCurrentGeneration(self):
+        return self.population_generations
+
+    def getParticleShape(self):
+        return self._genome_particle_shape
+
     def setPersistentRuleBook(self, rule_book):
         self._persistent_rule_book = rule_book
 
     def getPersistentRuleBook(self):
         return self._persistent_rule_book
+
+    def reassignMaxValues(self):
+        self._persistent_rule_book['max-deviation'] = int(sum(self.input_population_data_small))
+        self._persistent_rule_book['max-distance'] = \
+            ComposedNaturalEvolution.calculateIndividualDistance(
+                list(self.input_location_map.values()))
 
     def spawnNewPopulation(self):
         if not self._persistent_rule_book:

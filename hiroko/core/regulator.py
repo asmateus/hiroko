@@ -82,5 +82,8 @@ class UserEntryRegulator:
         with open(UserEntryRegulator.PTH + UserEntryRegulator.CONFIG_FILE, 'wb') as jfile:
             jfile.write(json.dumps(self._rule_book, sort_keys=True, indent=4).encode('utf8'))
 
+        print(
+            '>> Updated Rule Book, new snapshot ->', self._rule_book['last-system-snapshot-date'])
+
     def fetchRuleBook(self):
         return self._rule_book
