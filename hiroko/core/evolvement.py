@@ -85,8 +85,14 @@ class ComposedNaturalEvolution:
     def _crossIndividuals(self, generation):
         pass
 
-    def _purgeGeneration(self, generation, required_fitness=0):
-        pass
+    def _purgeGeneration(self, generation, generation_fitness, allow_up_to=4):
+        generation_copy = generation.copy()
+        generation_fitness_copy = generation_fitness.copy()
+        while len(generation_copy) > allow_up_to:
+            del generation_copy[generation_fitness_copy.index(max(generation_fitness_copy))]
+            generation_fitness_copy.remove(max(generation_fitness_copy))
+
+        return generation_copy
 
     def isPetriGlassFreezed(self):
         return self.epoch_count == self.petri_glass.getCurrentGenerationCount()
@@ -98,5 +104,8 @@ class ComposedNaturalEvolution:
             while len(generation) != self.petri_glass.getOutputPopulationSize():
                 generation.append(self._createMutant())
 
-        self._fitGeneration(generation)
-        self.petri_glass.setCurrentGenerationCount(self.epoch_count)
+        # Obtain the fitness of each population
+        generation_fitness = self._fitGeneration(generation)
+        survivors = self._purgeGeneration(generation, generation_fitness)
+
+        self.petri_glass.advanceCurrentGenerationCount()

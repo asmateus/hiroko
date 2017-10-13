@@ -110,6 +110,9 @@ class PetriGlass:
     def setCurrentGenerationCount(self, generation_num):
         self.population_generations = generation_num
 
+    def advanceCurrentGenerationCount(self):
+        self.population_generations += 1
+
     def getParticleShape(self):
         return self._genome_particle_shape
 
