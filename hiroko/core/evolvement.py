@@ -92,7 +92,7 @@ class ComposedNaturalEvolution:
             del generation_copy[generation_fitness_copy.index(max(generation_fitness_copy))]
             generation_fitness_copy.remove(max(generation_fitness_copy))
 
-        return generation_copy
+        return generation_copy, generation_fitness_copy
 
     def isPetriGlassFreezed(self):
         return self.epoch_count == self.petri_glass.getCurrentGenerationCount()
@@ -106,7 +106,9 @@ class ComposedNaturalEvolution:
 
         # Obtain the fitness of each population
         generation_fitness = self._fitGeneration(generation)
-        survivors = self._purgeGeneration(generation, generation_fitness)
+        survivors, survivors_fitness = self._purgeGeneration(generation, generation_fitness)
+        print('Generation fitness', generation_fitness)
+        print('survivors fitness', survivors_fitness)
 
         # Generate next generation via cross over of its individuals (the population)
 
