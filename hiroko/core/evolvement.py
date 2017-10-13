@@ -17,7 +17,7 @@ class ComposedNaturalEvolution:
         return np.std(total_revisions)
 
     @staticmethod
-    def calculateIndividualDistance(individual):
+    def _calculateIndividualDistance(individual):
         '''
             An individual is a list of points (x, y). The distance is calculated via maximum
             criteria. Select a node, search for the most distant member and repeat
@@ -40,7 +40,19 @@ class ComposedNaturalEvolution:
 
         return int(total_distance)
 
-    def _createMutants(self):
+    def _calculatePopulationDistance(self, population):
+        population_types = set(population)
+
+        total_distance = 0
+        for pt in population_types:
+            total_distance += ComposedNaturalEvolution._calculateIndividualDistance(
+                [self.petri_glass.getMapLocation(i)
+                    for i in range(len(population)) if population[i] == pt]
+            )
+
+        return total_distance
+
+    def _createMutant(self):
         genome = list(
             itertools.chain(*[
                 [i + 1] * self.petri_glass.getParticleShape()[i]
@@ -52,7 +64,23 @@ class ComposedNaturalEvolution:
         return genome
 
     def _fitGeneration(self, generation):
-        pass
+        def normalizeDistance(distance):
+            return distance / self.petri_glass.getPersistentRuleBook()['max-distance']
+
+        def normalizeDeviation(deviation):
+            return deviation / self.petri_glass.getPersistentRuleBook()['max-deviation']
+
+        population_fitness = list()
+        for population in generation:
+            population_fitness.append(
+                0.6 * normalizeDeviation(
+                    self._calculateStandardDeviation(
+                        population,
+                        self.petri_glass.getInputPopulationSmall())) +
+                0.4 * normalizeDistance(self._calculatePopulationDistance(population))
+            )
+
+        return population_fitness
 
     def _crossIndividuals(self, generation):
         pass
@@ -61,7 +89,14 @@ class ComposedNaturalEvolution:
         pass
 
     def isPetriGlassFreezed(self):
-        return self.epoch_count == self.petri_glass.getCurrentGeneration()
+        return self.epoch_count == self.petri_glass.getCurrentGenerationCount()
 
     def triggerEvolutionStep(self):
-        pass
+        generation = self.petri_glass.getCurrentGeneration()
+        if generation is None:
+            generation = list()
+            while len(generation) != self.petri_glass.getOutputPopulationSize():
+                generation.append(self._createMutant())
+
+        self._fitGeneration(generation)
+        self.petri_glass.setCurrentGenerationCount(self.epoch_count)

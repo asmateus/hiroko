@@ -68,6 +68,8 @@ class PetriGlass:
         self.input_population_data_small = None
         self.input_location_map = None
 
+        self.output_population_size = 0
+
         # The representation of a random member of the genome, used for initialization
         # and random mutations. It holds the number of neighborhoods per day
         self._genome_particle_shape = None
@@ -93,8 +95,20 @@ class PetriGlass:
         # Persistent system wide rule book
         self._persistent_rule_book = None
 
+    def getInputPopulationSmall(self):
+        return self.input_population_data_small
+
     def getCurrentGeneration(self):
+        return self.current_genome_pool
+
+    def getOutputPopulationSize(self):
+        return self.output_population_size
+
+    def getCurrentGenerationCount(self):
         return self.population_generations
+
+    def setCurrentGenerationCount(self, generation_num):
+        self.population_generations = generation_num
 
     def getParticleShape(self):
         return self._genome_particle_shape
@@ -104,6 +118,9 @@ class PetriGlass:
 
     def getPersistentRuleBook(self):
         return self._persistent_rule_book
+
+    def getMapLocation(self, index):
+        return self.input_location_map[self.input_population_data_big[index].gis]
 
     def reassignMaxValues(self):
         self._persistent_rule_book['max-deviation'] = int(sum(self.input_population_data_small))
@@ -132,6 +149,9 @@ class PetriGlass:
 
         # Location map information -> <GIS, xy-position>
         self.input_location_map = Parser.generateLocationMap(per)
+
+        # Retreive output population size
+        self.output_population_size = self._persistent_rule_book['output-population-size']
 
         # ********************************
         # Create the genome particle shape
