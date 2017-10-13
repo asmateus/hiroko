@@ -108,4 +108,9 @@ class ComposedNaturalEvolution:
         generation_fitness = self._fitGeneration(generation)
         survivors = self._purgeGeneration(generation, generation_fitness)
 
+        # Generate next generation via cross over of its individuals (the population)
+
+        # Fill the remaining space with mutants
+
+        # Advance to the next generation
         self.petri_glass.advanceCurrentGenerationCount()
