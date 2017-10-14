@@ -20,6 +20,6 @@ if __name__ == '__main__':
         entry_regulator.updateRuleBook(petri_glass.getPersistentRuleBook())
 
     # Trigger evolution process
-    evolution_prc = ComposedNaturalEvolution(petri_glass=petri_glass, max_epoch_count=5)
+    evolution_prc = ComposedNaturalEvolution(petri_glass=petri_glass, max_epoch_count=70)
     while not evolution_prc.isPetriGlassFreezed():
         evolution_prc.triggerEvolutionStep()

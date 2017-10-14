@@ -6,6 +6,7 @@ import random
 class ComposedNaturalEvolution:
     def __init__(self, petri_glass, max_epoch_count=100):
         self.epoch_count = max_epoch_count
+        self.checkpoint_data = dict()
         self.petri_glass = petri_glass
 
     @staticmethod
@@ -83,9 +84,37 @@ class ComposedNaturalEvolution:
         return population_fitness
 
     def _crossIndividuals(self, generation):
-        pass
+        '''
+            The cross over process is as follows:
+             * Choose random pairs from generation
+             * Choose random slices from of each member of each pair and exchange it
+             * repeat 10 times
+        '''
 
-    def _purgeGeneration(self, generation, generation_fitness, allow_up_to=4):
+        gen = generation.copy()
+
+        # Pair selection
+        pairs = list(range(len(gen)))
+        random.shuffle(pairs)
+        group1, group2 = pairs[0:len(pairs) // 2], pairs[len(pairs) // 2: len(pairs)]
+        pairs = list(zip(group1, group2))
+
+        for i in range(5):
+            # Choose slice size
+            s_size = random.choice(range(10, len(gen[0]) // 8))
+
+            # Choose slice starting point
+            s_start = random.choice(range(len(gen[0])))
+
+            # Exchange information
+            for idx1, idx2 in pairs:
+                temp = gen[idx1][s_start: s_start + s_size]
+                gen[idx1][s_start: s_start + s_size] = gen[idx2][s_start: s_start + s_size]
+                gen[idx2][s_start: s_start + s_size] = temp
+
+        return gen
+
+    def _purgeGeneration(self, generation, generation_fitness, allow_up_to=6):
         generation_copy = generation.copy()
         generation_fitness_copy = generation_fitness.copy()
         while len(generation_copy) > allow_up_to:
@@ -107,12 +136,32 @@ class ComposedNaturalEvolution:
         # Obtain the fitness of each population
         generation_fitness = self._fitGeneration(generation)
         survivors, survivors_fitness = self._purgeGeneration(generation, generation_fitness)
-        print('Generation fitness', generation_fitness)
-        print('survivors fitness', survivors_fitness)
+
+        # Pretty print of generation fitness
+        print('Generation:', self.petri_glass.getCurrentGenerationCount() + 1)
+        print('Best seeds:', ['%.4f' % round(f, 4) for f in survivors_fitness])
+
+        # Save current state
+        self.checkpoint_data['survivors'] = survivors
+        self.checkpoint_data['generation_fitness'] = generation_fitness
+        self.petri_glass.generateCheckPoint(self.checkpoint_data)
 
         # Generate next generation via cross over of its individuals (the population)
+        next_gen_base = self._crossIndividuals(survivors)
 
         # Fill the remaining space with mutants
+        mutants_to_generate = self.petri_glass.getOutputPopulationSize() - len(next_gen_base)
+
+        mutants = list()
+        for i in range(mutants_to_generate):
+            mutants.append(self._createMutant())
+
+        # Append data for next checkpoint save
+        self.checkpoint_data['non_mutants'] = next_gen_base
+        self.checkpoint_data['mutants'] = mutants
+
+        next_gen_base.extend(mutants)
+        self.petri_glass.setCurrentGeneration(next_gen_base)
 
         # Advance to the next generation
         self.petri_glass.advanceCurrentGenerationCount()
