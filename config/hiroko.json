@@ -1,8 +1,9 @@
 {
     "day-count": 12,
-    "last-system-snapshot-date": 1507919397,
+    "last-system-snapshot-date": 1508159193,
     "max-deviation": 530656,
     "max-distance": 2545638,
+    "method": "genetic",
     "min-deviation": 0,
     "min-distance": 0,
     "output-population-size": 10

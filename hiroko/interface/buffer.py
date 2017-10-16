@@ -101,5 +101,5 @@ class OnlineBuffer:
             content_str = '\n'.join([str(c) for c in content])
             save_lst.append(head_str + '\n' + content_str)
         save_str = '\n'.join(save_lst)
-        with open(DATA_PTH + str(self._buffer[0][1][0]) + '.dump', 'wb') as ff:
+        with open(DATA_PTH + 'dump/' + str(self._buffer[0][1][0]) + '.dump', 'wb') as ff:
             ff.write(save_str.encode('utf-8'))

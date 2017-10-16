@@ -19,7 +19,7 @@ class ComposedNaturalEvolution:
         return np.std(total_revisions)
 
     @staticmethod
-    def _calculateIndividualDistance(individual):
+    def calculateIndividualDistance(individual):
         '''
             An individual is a list of points (x, y). The distance is calculated via maximum
             criteria. Select a node, search for the most distant member and repeat
@@ -47,7 +47,7 @@ class ComposedNaturalEvolution:
 
         total_distance = 0
         for pt in population_types:
-            total_distance += ComposedNaturalEvolution._calculateIndividualDistance(
+            total_distance += ComposedNaturalEvolution.calculateIndividualDistance(
                 [self.petri_glass.getMapLocation(i)
                     for i in range(len(population)) if population[i] == pt]
             )
@@ -61,7 +61,7 @@ class ComposedNaturalEvolution:
                 for i in range(len(self.petri_glass.getParticleShape()))
             ])
         )
-        for i in range(3):
+        for i in range(5):
             random.shuffle(genome)
         return genome
 
@@ -100,9 +100,12 @@ class ComposedNaturalEvolution:
         group1, group2 = pairs[0:len(pairs) // 2], pairs[len(pairs) // 2: len(pairs)]
         pairs = list(zip(group1, group2))
 
-        for i in range(2):
+        # Cross only half of the survivors
+        pairs = [pairs[0]]
+
+        for i in range(1):
             # Choose slice size
-            s_size = random.choice(range(10, len(gen[0]) // 8))
+            s_size = 1  # random.choice(range(1, len(gen[0]) // 12))
 
             # Choose slice starting point
             s_start = random.choice(range(len(gen[0])))
@@ -115,7 +118,7 @@ class ComposedNaturalEvolution:
 
         return gen
 
-    def _purgeGeneration(self, generation, generation_fitness, allow_up_to=6):
+    def _purgeGeneration(self, generation, generation_fitness, allow_up_to=8):
         generation_copy = generation.copy()
         generation_fitness_copy = generation_fitness.copy()
         while len(generation_copy) > allow_up_to:
@@ -185,6 +188,16 @@ class ComposedNaturalEvolution:
         # Pretty print of generation fitness
         print('Generation:', self.petri_glass.getCurrentGenerationCount() + 1)
         print('Best seeds:', ['%.4f' % round(f, 4) for f in survivors_fitness])
+
+        # Get indices of survivors
+        survivors_idx = [generation.index(s) for s in survivors]
+
+        # Write information to buffer
+        self._writeToBuffer(
+            self.petri_glass.getCurrentGenerationCount(),
+            generation,
+            generation_fitness,
+            survivors_idx)
 
         self.petri_glass.setCurrentGeneration(generation)
 

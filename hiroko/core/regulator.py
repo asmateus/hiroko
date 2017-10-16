@@ -16,10 +16,12 @@ class UserEntryRegulator:
         'min-deviation',
         'min-distance',
         'output-population-size',
+        'method',
     ])
     ENTRY_RULE_EXPANSION = {
         'd': 'day-count',
         's': 'output-population-size',
+        'm': 'method',
     }
 
     def __init__(self):
@@ -29,6 +31,7 @@ class UserEntryRegulator:
         parser = argparse.ArgumentParser()
         parser.add_argument('-d', help='Days to distribute the revisions.', type=int)
         parser.add_argument('-s', help='Enter size of output for each generation.', type=int)
+        parser.add_argument('-m', help='Method of convergence <random> or <genetic>.', type=str)
 
         # Load rules from command line
         pri_rule_book = self.loadPriorityRules(parser.parse_args())
@@ -53,6 +56,8 @@ class UserEntryRegulator:
             rules[UserEntryRegulator.ENTRY_RULE_EXPANSION['d']] = parse_namespace.d
         if parse_namespace.s:
             rules[UserEntryRegulator.ENTRY_RULE_EXPANSION['s']] = parse_namespace.s
+        if parse_namespace.m:
+            rules[UserEntryRegulator.ENTRY_RULE_EXPANSION['m']] = parse_namespace.m
         return rules
 
     def checkRuleSanity(self):
@@ -68,6 +73,11 @@ class UserEntryRegulator:
                 raise Exception
         except Exception:
             print('>> Day number must be an integer between 10 and 20, inclusive.')
+            sys.exit(1)
+
+        method = self._rule_book[UserEntryRegulator.ENTRY_RULE_EXPANSION['m']]
+        if method != 'genetic' and method != 'random':
+            print('>> Method can only be genetic or random')
             sys.exit(1)
 
         print('>> Rules are correct!')

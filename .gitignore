@@ -2,6 +2,7 @@
 *.sublime-workspace
 
 # Hiroko dump files
+local/*
 *.dump
 
 # Byte-compiled / optimized / DLL files
