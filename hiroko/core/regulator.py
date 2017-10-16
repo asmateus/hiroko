@@ -9,13 +9,17 @@ class UserEntryRegulator:
     PTH = os.path.dirname(os.path.abspath(__file__)).split('hiroko')[0] + 'hiroko/'
     CONFIG_FILE = 'config/hiroko.json'
     DEF_RULES = set([
+        'day-count',
         'last-system-snapshot-date',
+        'max-deviation',
+        'max-distance',
         'min-deviation',
         'min-distance',
-        'day-count'
+        'output-population-size',
     ])
     ENTRY_RULE_EXPANSION = {
         'd': 'day-count',
+        's': 'output-population-size',
     }
 
     def __init__(self):
@@ -23,7 +27,8 @@ class UserEntryRegulator:
 
         # Create parsing tree
         parser = argparse.ArgumentParser()
-        parser.add_argument('-d', help='Days to distribute the revisions.')
+        parser.add_argument('-d', help='Days to distribute the revisions.', type=int)
+        parser.add_argument('-s', help='Enter size of output for each generation.', type=int)
 
         # Load rules from command line
         pri_rule_book = self.loadPriorityRules(parser.parse_args())
@@ -46,11 +51,13 @@ class UserEntryRegulator:
         rules = {}
         if parse_namespace.d:
             rules[UserEntryRegulator.ENTRY_RULE_EXPANSION['d']] = parse_namespace.d
+        if parse_namespace.s:
+            rules[UserEntryRegulator.ENTRY_RULE_EXPANSION['s']] = parse_namespace.s
         return rules
 
     def checkRuleSanity(self):
         # Check rule amount
-        if len(UserEntryRegulator.DEF_RULES - set(self._rule_book.keys())) != 0:
+        if len(set(self._rule_book.keys()) - UserEntryRegulator.DEF_RULES) != 0:
             print('>> Invalid rules')
             sys.exit(1)
 

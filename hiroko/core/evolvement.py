@@ -1,3 +1,4 @@
+from interface.buffer import OnlineBuffer
 import itertools
 import numpy as np
 import random
@@ -99,7 +100,7 @@ class ComposedNaturalEvolution:
         group1, group2 = pairs[0:len(pairs) // 2], pairs[len(pairs) // 2: len(pairs)]
         pairs = list(zip(group1, group2))
 
-        for i in range(5):
+        for i in range(2):
             # Choose slice size
             s_size = random.choice(range(10, len(gen[0]) // 8))
 
@@ -123,6 +124,10 @@ class ComposedNaturalEvolution:
 
         return generation_copy, generation_fitness_copy
 
+    def _writeToBuffer(self, generation_count, generation, fitness, sur_idxs):
+        obuffer = OnlineBuffer.getInstance()
+        obuffer.writeBuffer(generation_count, [generation, fitness, sur_idxs])
+
     def isPetriGlassFreezed(self):
         return self.epoch_count == self.petri_glass.getCurrentGenerationCount()
 
@@ -132,6 +137,7 @@ class ComposedNaturalEvolution:
             generation = list()
             while len(generation) != self.petri_glass.getOutputPopulationSize():
                 generation.append(self._createMutant())
+            self.petri_glass.setCurrentGeneration(generation)
 
         # Obtain the fitness of each population
         generation_fitness = self._fitGeneration(generation)
@@ -141,10 +147,15 @@ class ComposedNaturalEvolution:
         print('Generation:', self.petri_glass.getCurrentGenerationCount() + 1)
         print('Best seeds:', ['%.4f' % round(f, 4) for f in survivors_fitness])
 
-        # Save current state
-        self.checkpoint_data['survivors'] = survivors
-        self.checkpoint_data['generation_fitness'] = generation_fitness
-        self.petri_glass.generateCheckPoint(self.checkpoint_data)
+        # Get indices of survivors
+        survivors_idx = [generation.index(s) for s in survivors]
+
+        # Write information to buffer
+        self._writeToBuffer(
+            self.petri_glass.getCurrentGenerationCount(),
+            generation,
+            generation_fitness,
+            survivors_idx)
 
         # Generate next generation via cross over of its individuals (the population)
         next_gen_base = self._crossIndividuals(survivors)
@@ -156,12 +167,26 @@ class ComposedNaturalEvolution:
         for i in range(mutants_to_generate):
             mutants.append(self._createMutant())
 
-        # Append data for next checkpoint save
-        self.checkpoint_data['non_mutants'] = next_gen_base
-        self.checkpoint_data['mutants'] = mutants
-
         next_gen_base.extend(mutants)
         self.petri_glass.setCurrentGeneration(next_gen_base)
+
+        # Advance to the next generation
+        self.petri_glass.advanceCurrentGenerationCount()
+
+    def randomEvolutionStep(self):
+        generation = list()
+        while len(generation) != self.petri_glass.getOutputPopulationSize():
+            generation.append(self._createMutant())
+
+        # Obtain the fitness of each population
+        generation_fitness = self._fitGeneration(generation)
+        survivors, survivors_fitness = self._purgeGeneration(generation, generation_fitness)
+
+        # Pretty print of generation fitness
+        print('Generation:', self.petri_glass.getCurrentGenerationCount() + 1)
+        print('Best seeds:', ['%.4f' % round(f, 4) for f in survivors_fitness])
+
+        self.petri_glass.setCurrentGeneration(generation)
 
         # Advance to the next generation
         self.petri_glass.advanceCurrentGenerationCount()

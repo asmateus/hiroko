@@ -128,9 +128,6 @@ class PetriGlass:
     def getMapLocation(self, index):
         return self.input_location_map[self.input_population_data_big[index].gis]
 
-    def generateCheckPoint(self, checkpoint_data):
-        pass
-
     def reassignMaxValues(self):
         self._persistent_rule_book['max-deviation'] = int(sum(self.input_population_data_small))
         self._persistent_rule_book['max-distance'] = \

@@ -1,4 +1,5 @@
 from core.regulator import UserEntryRegulator
+from interface.buffer import OnlineBuffer
 from core.representation import PetriGlass
 from core.evolvement import ComposedNaturalEvolution
 
@@ -19,7 +20,13 @@ if __name__ == '__main__':
         petri_glass.reassignMaxValues()
         entry_regulator.updateRuleBook(petri_glass.getPersistentRuleBook())
 
+    # Open buffer
+    OnlineBuffer.getInstance().open()
+
     # Trigger evolution process
     evolution_prc = ComposedNaturalEvolution(petri_glass=petri_glass, max_epoch_count=70)
     while not evolution_prc.isPetriGlassFreezed():
         evolution_prc.triggerEvolutionStep()
+
+    # We finished, close buffer
+    OnlineBuffer.getInstance().close(save=True)

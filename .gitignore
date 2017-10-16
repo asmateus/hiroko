@@ -1,5 +1,9 @@
 *.sublime-project
 *.sublime-workspace
+
+# Hiroko dump files
+*.dump
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
