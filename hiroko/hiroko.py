@@ -24,7 +24,7 @@ if __name__ == '__main__':
     OnlineBuffer.getInstance().open()
 
     # Trigger evolution process
-    evolution_prc = ComposedNaturalEvolution(petri_glass=petri_glass, max_epoch_count=200)
+    evolution_prc = ComposedNaturalEvolution(petri_glass=petri_glass, max_epoch_count=400)
     while not evolution_prc.isPetriGlassFreezed():
         if petri_glass.getPersistentRuleBook()['method'] == 'genetic':
             evolution_prc.triggerEvolutionStep()
