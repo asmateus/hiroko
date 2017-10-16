@@ -3,6 +3,7 @@
 
 # Hiroko dump files
 local/*
+.ipynb_checkpoints
 *.dump
 
 # Byte-compiled / optimized / DLL files
