@@ -91,16 +91,16 @@ class ComposedNaturalEvolution:
         population_fitness = list()
         for population in generation:
             population_fitness.append(
-                0.6 * normalizeDeviation(
+                1 * normalizeDeviation(
                     self._calculateStandardDeviation(
                         population,
                         self.petri_glass.getInputPopulationSmall())) +
-                0.4 * normalizeDistance(self._calculatePopulationDistance(population))
+                0 * normalizeDistance(self._calculatePopulationDistance(population))
             )
 
         return population_fitness
 
-    def _crossIndividuals(self, generation):
+    def _crossIndividuals(self, generation, fitness):
         '''
             The cross over process is as follows:
              * Choose random pairs from generation
@@ -109,9 +109,13 @@ class ComposedNaturalEvolution:
              * Exchange neighborhoods randomly for this days
              * repeat N times
         '''
-        N = 3
+        N = 2
 
-        gen = generation.copy()
+        gen = sorted(zip(generation, fitness), key=lambda t: t[1])
+
+        gen = list(list(zip(*gen))[0])
+        gen_save = gen[0:4]
+        gen = gen[4:]
         input_small = self.petri_glass.getInputPopulationSmall()
         avg = [self._calculateAverageRevisions(g, input_small) for g in gen]
 
@@ -128,44 +132,40 @@ class ComposedNaturalEvolution:
                 counts_1 = self._getCountsPerDay(gen[idx1], input_small)
                 counts_2 = self._getCountsPerDay(gen[idx2], input_small)
 
-                counts_1 = [abs(avg[idx1] - c) for c in counts_1]
-                counts_2 = [abs(avg[idx2] - c) for c in counts_2]
+                counts_1_std = [int(abs(avg[idx1] - c)) for c in counts_1]
+                counts_2_std = [int(abs(avg[idx2] - c)) for c in counts_2]
 
-                worst_1 = counts_1.index(max(counts_1))
-                worst_2 = counts_2.index(max(counts_2))
+                worst_1 = counts_1_std.index(max(counts_1_std)) + 1
+                worst_2 = counts_2_std.index(max(counts_2_std)) + 1
 
                 # Get neighborhoods that belong to each worst day
                 neighbor_worst_1 = [i for i in range(len(gen[idx1])) if gen[idx1][i] == worst_1]
                 neighbor_worst_2 = [i for i in range(len(gen[idx2])) if gen[idx2][i] == worst_2]
 
-                # Transform into sets and intersect the set, to get the shared neighbors
-                neighbor_worst_1 = set(neighbor_worst_1)
-                neighbor_worst_2 = set(neighbor_worst_2)
+                random.shuffle(neighbor_worst_1)
+                random.shuffle(neighbor_worst_2)
 
-                shared_neighbors = list(neighbor_worst_1.intersection(neighbor_worst_2))
+                # Get the smallest len
+                l_neighbor_worst_1 = len(neighbor_worst_1)
+                l_neighbor_worst_2 = len(neighbor_worst_2)
 
-                print('Shared:', shared_neighbors)
-
-                # If there is no intersection continue to next pair
-                if len(shared_neighbors) == 0:
-                    continue
-
-                if len(shared_neighbors) < 4:
-                    s_size = len(shared_neighbors)
-                    s_start = 0
-                else:
-                    s_size = 3
-                    s_start = 0
+                min_len = min([l_neighbor_worst_1, l_neighbor_worst_2])
+                s_size = min_len // 3
+                s_start = 0
 
                 # Exchange
-                exchange_neighbors = shared_neighbors[s_start: s_start + s_size]
-                print('To exchange:', exchange_neighbors)
-                for i in exchange_neighbors:
-                    gen[idx1][i], gen[idx2][i] = gen[idx2][i], gen[idx1][i]
+                n_w_1 = neighbor_worst_1[s_start: s_start + s_size]
+                n_w_2 = neighbor_worst_2[s_start: s_start + s_size]
 
+                for i, j in zip(n_w_1, n_w_2):
+                    temp = gen[idx1][i]
+                    gen[idx1][i] = gen[idx2][j]
+                    gen[idx2][j] = temp
+
+        gen.extend(gen_save)
         return gen
 
-    def _purgeGeneration(self, generation, generation_fitness, allow_up_to=4):
+    def _purgeGeneration(self, generation, generation_fitness, allow_up_to=6):
         generation_copy = generation.copy()
         generation_fitness_copy = generation_fitness.copy()
         while len(generation_copy) > allow_up_to:
@@ -208,7 +208,7 @@ class ComposedNaturalEvolution:
             survivors_idx)
 
         # Generate next generation via cross over of its individuals (the population)
-        next_gen_base = self._crossIndividuals(survivors)
+        next_gen_base = self._crossIndividuals(survivors, survivors_fitness)
 
         # Fill the remaining space with mutants
         mutants_to_generate = self.petri_glass.getOutputPopulationSize() - len(next_gen_base)
@@ -230,7 +230,7 @@ class ComposedNaturalEvolution:
 
         # Obtain the fitness of each population
         generation_fitness = self._fitGeneration(generation)
-        survivors, survivors_fitness = self._purgeGeneration(generation)
+        survivors, survivors_fitness = self._purgeGeneration(generation, generation_fitness)
 
         # Pretty print of generation fitness
         print('Generation:', self.petri_glass.getCurrentGenerationCount() + 1)

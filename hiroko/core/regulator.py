@@ -17,11 +17,13 @@ class UserEntryRegulator:
         'min-distance',
         'output-population-size',
         'method',
+        'interface',
     ])
     ENTRY_RULE_EXPANSION = {
         'd': 'day-count',
         's': 'output-population-size',
         'm': 'method',
+        'i': 'interface'
     }
 
     def __init__(self):
@@ -32,6 +34,7 @@ class UserEntryRegulator:
         parser.add_argument('-d', help='Days to distribute the revisions.', type=int)
         parser.add_argument('-s', help='Enter size of output for each generation.', type=int)
         parser.add_argument('-m', help='Method of convergence <random> or <genetic>.', type=str)
+        parser.add_argument('-i', help='Interface to load application.', type=str)
 
         # Load rules from command line
         pri_rule_book = self.loadPriorityRules(parser.parse_args())
@@ -58,6 +61,8 @@ class UserEntryRegulator:
             rules[UserEntryRegulator.ENTRY_RULE_EXPANSION['s']] = parse_namespace.s
         if parse_namespace.m:
             rules[UserEntryRegulator.ENTRY_RULE_EXPANSION['m']] = parse_namespace.m
+        if parse_namespace.i:
+            rules[UserEntryRegulator.ENTRY_RULE_EXPANSION['i']] = (parse_namespace.i).lower()
         return rules
 
     def checkRuleSanity(self):
@@ -78,6 +83,11 @@ class UserEntryRegulator:
         method = self._rule_book[UserEntryRegulator.ENTRY_RULE_EXPANSION['m']]
         if method != 'genetic' and method != 'random':
             print('>> Method can only be genetic or random')
+            sys.exit(1)
+
+        interface = self._rule_book[UserEntryRegulator.ENTRY_RULE_EXPANSION['i']]
+        if interface != 'terminal' and interface != 'ui':
+            print('>> Interfaces can only be terminal or ui')
             sys.exit(1)
 
         print('>> Rules are correct!')

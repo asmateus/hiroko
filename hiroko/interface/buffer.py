@@ -10,7 +10,7 @@ import ast
 def isBufferOpen(func):
     def check(*args):
         if args[0]._buffer_state is OnlineBuffer.BUFFER_STATE_OPEN:
-            func(*args)
+            return func(*args)
         else:
             print('Buffer is closed')
             return
@@ -76,7 +76,7 @@ class OnlineBuffer:
         # Wait until buffer becomes available
         while self._read_lock or self._write_lock:
             pass
-        self._read_lock = True
+        # self._read_lock = True
 
         # Read specified head
         if len(self._buffer) is 1:

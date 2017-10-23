@@ -1,4 +1,5 @@
 from core.regulator import UserEntryRegulator
+from graphics.minimal import MinimalApplication
 from interface.buffer import OnlineBuffer
 from core.representation import PetriGlass
 from core.evolvement import ComposedNaturalEvolution
@@ -20,16 +21,20 @@ if __name__ == '__main__':
         petri_glass.reassignMaxValues()
         entry_regulator.updateRuleBook(petri_glass.getPersistentRuleBook())
 
-    # Open buffer
-    OnlineBuffer.getInstance().open()
+    if rule_book['interface'] == 'terminal':
+        # Open buffer
+        OnlineBuffer.getInstance().open()
 
-    # Trigger evolution process
-    evolution_prc = ComposedNaturalEvolution(petri_glass=petri_glass, max_epoch_count=400)
-    while not evolution_prc.isPetriGlassFreezed():
-        if petri_glass.getPersistentRuleBook()['method'] == 'genetic':
-            evolution_prc.triggerEvolutionStep()
-        elif petri_glass.getPersistentRuleBook()['method'] == 'random':
-            evolution_prc.randomEvolutionStep()
+        # Trigger evolution process
+        evolution_prc = ComposedNaturalEvolution(petri_glass=petri_glass, max_epoch_count=200)
+        while not evolution_prc.isPetriGlassFreezed():
+            if petri_glass.getPersistentRuleBook()['method'] == 'genetic':
+                evolution_prc.triggerEvolutionStep()
+            elif petri_glass.getPersistentRuleBook()['method'] == 'random':
+                evolution_prc.randomEvolutionStep()
 
-    # We finished, close buffer
-    OnlineBuffer.getInstance().close(save=True)
+        # We finished, close buffer
+        OnlineBuffer.getInstance().close(save=True)
+    elif rule_book['interface'] == 'ui':
+        application = MinimalApplication(petri_glass)
+        application.startApplication()
