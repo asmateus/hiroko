@@ -31,60 +31,109 @@ class MinimalApplication(QtWidgets.QMainWindow):
         sys.exit(self.app.exec_())
 
     def setup(self):
+        self.ui.scatter_plot.setMouseEnabled(x=False, y=False)
         self.ui.scatter_plot.setXRange(1, 100, padding=0)
         self.ui.scatter_plot.setYRange(0.35, 0.4, padding=0)
 
-        self.ui.start_btn.clicked.connect(self.startProcess)
+        self.ui.start_btn.clicked.connect(
+            lambda: self.startProcess() if self.stop_signal else self.stopProcess())
+
+    def stopProcess(self):
+        # Visual signal to user that process stopped
+        self.stop_signal = True
+        self.ui.start_btn.setText('Start')
 
     def startProcess(self):
-        if self.ui.start_btn.text() == 'Start':
-            self.stop_signal = False
+        # Visual signal to user that process began
+        self.stop_signal = False
+        self.ui.start_btn.setText('Stop')
 
-            # Open buffer
-            OnlineBuffer.getInstance().open()
+        # ****************
+        # Starting process
+        # ****************
 
-            self.print_timer = QBasicTimer()
-            self.print_timer.start(10, self)
+        # Open buffer for data registration
+        OnlineBuffer.getInstance().open()
 
-            # Open process in new thread
-            prc = Thread(None, target=self._process, args=())
-            prc.daemon = True
-            prc.start()
+        # Start the genetic algorithm with the current configuration. In a new thread
+        algorithm = Thread(None, target=self._process, args=())
+        algorithm.daemon = True  # Bind it to the external context
+        algorithm.start()
 
-            self.ui.start_btn.setText('Stop')
-        else:
-            self.stop_signal = True
-            print('>> Stop signal reached')
-            self.ui.start_btn.setText('Start')
+        # Update the UI with the data of the buffer using a Timer event
+        self.ui_print_timer = QBasicTimer()
+        self.ui_print_timer.start(0.1, self)
 
     def timerEvent(self, event):
         if self.stop_signal:
-            self.print_timer.stop()
+            self.ui_print_timer.stop()
 
+        # Obtain data of last epoch by reading the Buffer
         last_data = OnlineBuffer.getInstance().readBuffer()
-        if last_data is not None and len(last_data) > 0:
+
+        if last_data is not None and len(last_data):
+            # Determine whether the epoch count of the ui is up to date with the Buffer
+            # If it is, do not do anything, else update plots
             if self.current_head is None or self.current_head != last_data[0]:
+                # Reasign head
                 self.current_head = last_data[0]
+
+                # Build data for scatter plot
                 self.scatter_x.extend([self.current_head] * len(last_data[1][1]))
                 self.scatter_y.extend(last_data[1][1])
 
-                self.ui.scatter_plot.plot(self.scatter_x, self.scatter_y, pen=None, symbol='o')
+                # Build data for bar plot
+                fitness = last_data[1][1]
+                best_index = fitness.index(min(fitness))
+                best = last_data[1][0][best_index]
+                sums = ComposedNaturalEvolution._getCountsPerDay(
+                    best,
+                    self.petri_glass.getInputPopulationSmall())
+
+                # ***********************************
+                # Set up the plot containers and plot
+                # ***********************************
+
+                # Scatter plot
+                max_x, max_y = max(self.scatter_x), max(self.scatter_y)
+                min_x, min_y = min(self.scatter_x), min(self.scatter_y)
+                delta_x, delta_y = (max_x - min_x) / 10, (max_y - min_y) / 10
+
+                self.ui.scatter_plot.setXRange(min_x - delta_x, max_x + delta_x, padding=0)
+                self.ui.scatter_plot.setYRange(min_y - delta_y, max_y + delta_y, padding=0)
+                self.ui.scatter_plot.plot(
+                    self.scatter_x,
+                    self.scatter_y,
+                    pen=None,
+                    symbol='o',
+                    clear=True)
+
+                # Bar plot
+                max_x, max_y = len(sums), max(sums)
+                min_x, min_y = 0, 0
+                delta_x, delta_y = (max_x - min_x) / 10, (max_y - min_y) / 10
+
+                self.ui.bar_plot.setXRange(min_x - delta_x, max_x + delta_x, padding=0)
+                self.ui.bar_plot.setYRange(min_y - delta_y, max_y + delta_y, padding=0)
+                self.ui.bar_plot.plot(list(range(max_x)), sums, symbol='o', clear=True)
 
     def _process(self):
-        # Trigger evolution process
-        evolution_prc = ComposedNaturalEvolution(
-            petri_glass=self.petri_glass,
-            max_epoch_count=100)
-        while not evolution_prc.isPetriGlassFreezed() and not self.stop_signal:
+        # Create a composed natural evolution process
+        prc = ComposedNaturalEvolution(petri_glass=self.petri_glass, max_epoch_count=500)
+
+        # Iterate over the epochs while the petriglass is not freezed or no stop signal is called
+        while not (prc.isPetriGlassFreezed() or self.stop_signal):
             if self.petri_glass.getPersistentRuleBook()['method'] == 'genetic':
-                evolution_prc.triggerEvolutionStep()
+                prc.triggerEvolutionStep()
             elif self.petri_glass.getPersistentRuleBook()['method'] == 'random':
-                evolution_prc.randomEvolutionStep()
+                prc.randomEvolutionStep()
 
-        # We finished, close buffer
-        self.stop_signal = True
-        print('>> Stop signal reached')
+        self._endProcess()
 
+    def _endProcess(self):
+        # We finished, stop saving data. Close Buffer
         OnlineBuffer.getInstance().close(save=False)
+        self.petri_glass.cleanGlass()
 
+        self.stop_signal = True
         self.ui.start_btn.setText('Start')

@@ -91,11 +91,11 @@ class ComposedNaturalEvolution:
         population_fitness = list()
         for population in generation:
             population_fitness.append(
-                1 * normalizeDeviation(
+                0.8 * normalizeDeviation(
                     self._calculateStandardDeviation(
                         population,
                         self.petri_glass.getInputPopulationSmall())) +
-                0 * normalizeDistance(self._calculatePopulationDistance(population))
+                0.2 * normalizeDistance(self._calculatePopulationDistance(population))
             )
 
         return population_fitness

@@ -7,32 +7,32 @@
     <x>0</x>
     <y>0</y>
     <width>1200</width>
-    <height>600</height>
+    <height>650</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>1200</width>
-    <height>600</height>
+    <height>650</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
     <width>1200</width>
-    <height>600</height>
+    <height>650</height>
    </size>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QGroupBox" name="groupBox">
+   <widget class="QGroupBox" name="option_holder">
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>10</y>
+      <y>0</y>
       <width>441</width>
-      <height>111</height>
+      <height>121</height>
      </rect>
     </property>
     <property name="title">
@@ -45,7 +45,7 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>20</y>
+       <y>30</y>
        <width>111</width>
        <height>22</height>
       </rect>
@@ -58,7 +58,7 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>60</y>
+       <y>70</y>
        <width>88</width>
        <height>34</height>
       </rect>
@@ -71,7 +71,7 @@
      <property name="geometry">
       <rect>
        <x>130</x>
-       <y>60</y>
+       <y>70</y>
        <width>51</width>
        <height>34</height>
       </rect>
@@ -84,7 +84,7 @@
      <property name="geometry">
       <rect>
        <x>190</x>
-       <y>60</y>
+       <y>70</y>
        <width>51</width>
        <height>34</height>
       </rect>
@@ -97,7 +97,7 @@
      <property name="geometry">
       <rect>
        <x>130</x>
-       <y>20</y>
+       <y>30</y>
        <width>111</width>
        <height>32</height>
       </rect>
@@ -119,7 +119,7 @@
      <property name="geometry">
       <rect>
        <x>260</x>
-       <y>50</y>
+       <y>60</y>
        <width>171</width>
        <height>18</height>
       </rect>
@@ -132,7 +132,7 @@
      <property name="geometry">
       <rect>
        <x>260</x>
-       <y>30</y>
+       <y>40</y>
        <width>171</width>
        <height>18</height>
       </rect>
@@ -145,7 +145,7 @@
      <property name="geometry">
       <rect>
        <x>260</x>
-       <y>70</y>
+       <y>80</y>
        <width>171</width>
        <height>18</height>
       </rect>
@@ -155,11 +155,11 @@
      </property>
     </widget>
    </widget>
-   <widget class="QGroupBox" name="groupBox_2">
+   <widget class="QGroupBox" name="map_holder">
     <property name="geometry">
      <rect>
       <x>19</x>
-      <y>129</y>
+      <y>160</y>
       <width>441</width>
       <height>411</height>
      </rect>
@@ -168,30 +168,24 @@
      <string/>
     </property>
    </widget>
-   <widget class="QGroupBox" name="groupBox_3">
+   <widget class="PlotWidget" name="scatter_plot">
     <property name="geometry">
      <rect>
-      <x>479</x>
-      <y>9</y>
+      <x>480</x>
+      <y>1</y>
       <width>701</width>
-      <height>201</height>
+      <height>271</height>
      </rect>
-    </property>
-    <property name="title">
-     <string/>
     </property>
    </widget>
-   <widget class="QGroupBox" name="groupBox_4">
+   <widget class="PlotWidget" name="bar_plot">
     <property name="geometry">
      <rect>
-      <x>479</x>
-      <y>229</y>
+      <x>480</x>
+      <y>280</y>
       <width>701</width>
-      <height>291</height>
+      <height>311</height>
      </rect>
-    </property>
-    <property name="title">
-     <string/>
     </property>
    </widget>
   </widget>
@@ -210,7 +204,7 @@
     </property>
     <widget class="QMenu" name="menuNew">
      <property name="title">
-      <string>New</string>
+      <string>&amp;New</string>
      </property>
      <addaction name="actionGenetic"/>
      <addaction name="actionRandom"/>
@@ -231,30 +225,37 @@
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionGenetic">
    <property name="text">
-    <string>Genetic</string>
+    <string>&amp;Genetic</string>
    </property>
   </action>
   <action name="actionRandom">
    <property name="text">
-    <string>Random</string>
+    <string>&amp;Random</string>
    </property>
   </action>
   <action name="actionOpen">
    <property name="text">
-    <string>Load dump File</string>
+    <string>&amp;Load dump File</string>
    </property>
   </action>
   <action name="actionModify">
    <property name="text">
-    <string>Modify</string>
+    <string>&amp;Modify</string>
    </property>
   </action>
   <action name="actionImport_Rule_Book">
    <property name="text">
-    <string>Import Rule Book</string>
+    <string>&amp;Import Rule Book</string>
    </property>
   </action>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>PlotWidget</class>
+   <extends>QGraphicsView</extends>
+   <header location="global">pyqtgraph</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

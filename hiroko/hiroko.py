@@ -3,6 +3,7 @@ from graphics.minimal import MinimalApplication
 from interface.buffer import OnlineBuffer
 from core.representation import PetriGlass
 from core.evolvement import ComposedNaturalEvolution
+import time
 
 
 if __name__ == '__main__':
@@ -26,12 +27,14 @@ if __name__ == '__main__':
         OnlineBuffer.getInstance().open()
 
         # Trigger evolution process
+        t1 = time.time()
         evolution_prc = ComposedNaturalEvolution(petri_glass=petri_glass, max_epoch_count=200)
         while not evolution_prc.isPetriGlassFreezed():
             if petri_glass.getPersistentRuleBook()['method'] == 'genetic':
                 evolution_prc.triggerEvolutionStep()
             elif petri_glass.getPersistentRuleBook()['method'] == 'random':
                 evolution_prc.randomEvolutionStep()
+        print('Elapsed time:', time.time() - t1)
 
         # We finished, close buffer
         OnlineBuffer.getInstance().close(save=True)

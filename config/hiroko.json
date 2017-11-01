@@ -1,7 +1,7 @@
 {
-    "day-count": 20,
+    "day-count": 10,
     "interface": "terminal",
-    "last-system-snapshot-date": 1508753907,
+    "last-system-snapshot-date": 1509493702,
     "max-deviation": 530656,
     "max-distance": 2545638,
     "method": "genetic",

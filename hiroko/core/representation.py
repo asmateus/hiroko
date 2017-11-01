@@ -134,6 +134,10 @@ class PetriGlass:
             ComposedNaturalEvolution.calculateIndividualDistance(
                 list(self.input_location_map.values()))
 
+    def cleanGlass(self):
+        self.population_generations = 0
+        self.current_genome_pool = None
+
     def spawnNewPopulation(self):
         if not self._persistent_rule_book:
             print('ERROR: Petri Glass requires a persistent rule book for execution')
