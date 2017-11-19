@@ -6,6 +6,7 @@ struct petriglass
 {
     long *locations;
     int *people;
+    int count;
 };
 
 typedef struct petriglass glass;
@@ -42,6 +43,11 @@ void crossIndividuals(int generation[], int fitness[])
 }
 
 void purgeGeneration(int generation[], int fitness[])
+{
+
+}
+
+void triggerEvolutionStep(int output[])
 {
 
 }

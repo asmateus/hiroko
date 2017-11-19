@@ -1,5 +1,4 @@
 import numpy as np
-import time
 import json
 import cv2
 import os
@@ -48,17 +47,20 @@ class Map:
                 out = out.astype(np.uint8)
                 self.neighborholder[k] = out
 
+        self.overall = np.all(self.mask == [255, 255, 255], axis=-1)
+        self.overall = np.stack([self.overall, self.overall, self.overall], axis=2)
+        self.overall = self.overall.astype(np.uint8)
+        self.overall = self.overall * np.array([236, 237, 238], dtype=np.uint8)
+
     def colorMap(self, color_array=None):
         if not self.coloring_enabled:
             return
 
-        color_array = [2] * 329
-        t1 = time.time()
         out = np.zeros(self.mask.shape, dtype=np.uint8)
         if color_array is None:
-            return self.mask
+            return self.mask + self.overall
         for i in range(len(color_array)):
             color = self.day_colors[str(color_array[i])]
             out += self.neighborholder[self.neigborhood_enumerator[i].gis] * color
-        print('Elapsed time:', time.time() - t1)
+        out += self.overall
         return out

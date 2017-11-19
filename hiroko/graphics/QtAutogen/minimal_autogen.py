@@ -13,7 +13,7 @@ import pyqtgraph as pg
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
-        pg.setConfigOption('background', 'w')
+        pg.setConfigOption('background', (236, 237, 238))
         pg.setConfigOption('foreground', 'k')
 
         MainWindow.setObjectName("MainWindow")
@@ -67,7 +67,7 @@ class Ui_MainWindow(object):
         self.scatter_plot.setGeometry(QtCore.QRect(20, 130, 701, 271))
         self.scatter_plot.setObjectName("scatter_plot")
         self.bar_plot = PlotWidget(self.centralwidget)
-        self.bar_plot.setGeometry(QtCore.QRect(20, 380, 701, 311))
+        self.bar_plot.setGeometry(QtCore.QRect(20, 400, 701, 271))
         self.bar_plot.setObjectName("bar_plot")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
