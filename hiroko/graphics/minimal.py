@@ -51,7 +51,7 @@ class MinimalApplication(QtWidgets.QMainWindow):
     def repaintMap(self, map_array):
         h, w, _ = map_array.shape
         pixmap = QPixmap(QImage(map_array, w, h, 3 * w, QImage.Format_RGB888))
-        self.ui.map_holder_label.setPixmap(pixmap)
+        # self.ui.map_holder_label.setPixmap(pixmap)
 
     def stopProcess(self):
         # Visual signal to user that process stopped
@@ -110,7 +110,8 @@ class MinimalApplication(QtWidgets.QMainWindow):
                 # ***********************************
 
                 # Paint map
-                self.repaintMap(self.map.colorMap(best))
+                while(1):
+                    self.repaintMap(self.map.colorMap(best))
 
                 # Scatter plot
                 max_x, max_y = max(self.scatter_x), max(self.scatter_y)
@@ -137,14 +138,14 @@ class MinimalApplication(QtWidgets.QMainWindow):
 
     def _process(self):
         # Create a composed natural evolution process
-        prc = ComposedNaturalEvolution(petri_glass=self.petri_glass, max_epoch_count=500)
+        prc = ComposedNaturalEvolution(petri_glass=self.petri_glass, max_epoch_count=1)
 
         # Iterate over the epochs while the petriglass is not freezed or no stop signal is called
         while not (prc.isPetriGlassFreezed() or self.stop_signal):
             if self.petri_glass.getPersistentRuleBook()['method'] == 'genetic':
-                prc.triggerEvolutionStep()
+                pass  # prc.triggerEvolutionStep()
             elif self.petri_glass.getPersistentRuleBook()['method'] == 'random':
-                prc.randomEvolutionStep()
+                pass  # prc.randomEvolutionStep()
 
         self._endProcess()
 

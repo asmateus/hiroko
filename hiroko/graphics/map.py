@@ -1,4 +1,5 @@
 import numpy as np
+import time
 import json
 import cv2
 import os
@@ -14,6 +15,9 @@ class Map:
     def jread(filename):
         with open(Map.PTH + filename, 'rb') as jfile:
             jin = json.loads(jfile.read().decode('utf-8'))
+
+        for k in jin.keys():
+            jin[k] = np.array(jin[k], dtype=np.uint8)
         return jin
 
     @staticmethod
@@ -34,22 +38,27 @@ class Map:
         if self.neigborhood_enumerator is None:
             self.coloring_enabled = False
 
+        self.neighborholder = dict()
+        if self.coloring_enabled:
+            for k in self.relation_colors.keys():
+                out = np.zeros(self.mask.shape, dtype=np.uint8)
+                mask_color = self.relation_colors[k]
+                out = np.all(self.mask == mask_color, axis=-1)
+                out = np.stack([out, out, out], axis=2)
+                out = out.astype(np.uint8)
+                self.neighborholder[k] = out
+
     def colorMap(self, color_array=None):
         if not self.coloring_enabled:
             return
 
+        color_array = [2] * 329
+        t1 = time.time()
         out = np.zeros(self.mask.shape, dtype=np.uint8)
-        out_final = np.zeros(self.mask.shape, dtype=np.uint8)
-        print(self.mask[342, 278])
         if color_array is None:
-            return out
+            return self.mask
         for i in range(len(color_array)):
             color = self.day_colors[str(color_array[i])]
-            mask_color = self.relation_colors[self.neigborhood_enumerator[i].gis]
-
-            out = np.all(self.mask == mask_color, axis=-1)
-            out = np.stack([out, out, out], axis=2)
-            out_final = np.where(out, color, out_final)
-
-        out_final = out_final.astype(np.uint8)
-        return out_final
+            out += self.neighborholder[self.neigborhood_enumerator[i].gis] * color
+        print('Elapsed time:', time.time() - t1)
+        return out
