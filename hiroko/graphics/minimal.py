@@ -1,8 +1,10 @@
 from graphics.QtAutogen.minimal_autogen import Ui_MainWindow
+from graphics.map import Map
 from interface.buffer import OnlineBuffer
 from core.evolvement import ComposedNaturalEvolution
 from threading import Thread
 from PyQt5 import QtWidgets
+from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtCore import QBasicTimer
 import sys
 
@@ -22,6 +24,9 @@ class MinimalApplication(QtWidgets.QMainWindow):
         self.scatter_x = list()
         self.scatter_y = list()
 
+        # Create a map object for the map holder
+        self.map = Map(self.petri_glass.getNeighborhoodEnumerator())
+
     def startApplication(self):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
@@ -36,8 +41,17 @@ class MinimalApplication(QtWidgets.QMainWindow):
         self.ui.scatter_plot.setXRange(1, 100, padding=0)
         self.ui.scatter_plot.setYRange(0.35, 0.4, padding=0)
 
+        # Inialize map holder with mask
+        self.repaintMap(self.map.colorMap())
+
+        # Action connections
         self.ui.start_btn.clicked.connect(
             lambda: self.startProcess() if self.stop_signal else self.stopProcess())
+
+    def repaintMap(self, map_array):
+        h, w, _ = map_array.shape
+        pixmap = QPixmap(QImage(map_array, w, h, 3 * w, QImage.Format_RGB888))
+        self.ui.map_holder_label.setPixmap(pixmap)
 
     def stopProcess(self):
         # Visual signal to user that process stopped
@@ -95,28 +109,31 @@ class MinimalApplication(QtWidgets.QMainWindow):
                 # Set up the plot containers and plot
                 # ***********************************
 
+                # Paint map
+                self.repaintMap(self.map.colorMap(best))
+
                 # Scatter plot
                 max_x, max_y = max(self.scatter_x), max(self.scatter_y)
                 min_x, min_y = min(self.scatter_x), min(self.scatter_y)
                 delta_x, delta_y = (max_x - min_x) / 10, (max_y - min_y) / 10
 
-                self.ui.scatter_plot.setXRange(min_x - delta_x, max_x + delta_x, padding=0)
-                self.ui.scatter_plot.setYRange(min_y - delta_y, max_y + delta_y, padding=0)
-                self.ui.scatter_plot.plot(
-                    self.scatter_x,
-                    self.scatter_y,
-                    pen=None,
-                    symbol='o',
-                    clear=True)
+                # self.ui.scatter_plot.setXRange(min_x - delta_x, max_x + delta_x, padding=0)
+                # self.ui.scatter_plot.setYRange(min_y - delta_y, max_y + delta_y, padding=0)
+                # self.ui.scatter_plot.plot(
+                #    self.scatter_x,
+                #    self.scatter_y,
+                #    pen=None,
+                #    symbol='o',
+                #    clear=True)
 
                 # Bar plot
                 max_x, max_y = len(sums), max(sums)
                 min_x, min_y = 0, 0
                 delta_x, delta_y = (max_x - min_x) / 10, (max_y - min_y) / 10
 
-                self.ui.bar_plot.setXRange(min_x - delta_x, max_x + delta_x, padding=0)
-                self.ui.bar_plot.setYRange(min_y - delta_y, max_y + delta_y, padding=0)
-                self.ui.bar_plot.plot(list(range(max_x)), sums, symbol='o', clear=True)
+                # self.ui.bar_plot.setXRange(min_x - delta_x, max_x + delta_x, padding=0)
+                # self.ui.bar_plot.setYRange(min_y - delta_y, max_y + delta_y, padding=0)
+                # self.ui.bar_plot.plot(list(range(max_x)), sums, symbol='o', clear=True)
 
     def _process(self):
         # Create a composed natural evolution process
