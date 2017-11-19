@@ -14,6 +14,8 @@ To run the application you should have in your system the following:
 
 * Python 3.5+
 * Scipy
+* PtQt5
+* Pyqtgraph
 
 ## Usage
 Hiroko execution is straight foward, access `hiroko` sub-directory and run the following command:
