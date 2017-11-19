@@ -35,6 +35,7 @@ Although the command mentioned previously is enough to get the application worki
 * `-d` selects the number of days in which the neighborhoods are distributed.
 * `-s` selects the size output of each generation, larger size outputs may lead to better results but it takes more time.
 * `-m` selects the method of execution: whether you want to execute the genetic algorithm or a randomized version of it.
+* `-i` selects the interface of execution: whether you want a graphical `ui` or a `terminal`.
 
 For further detail consult the `help` command:
 
