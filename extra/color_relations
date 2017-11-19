@@ -1,0 +1,1647 @@
+{
+    "BARRIO 12 DE OCTUBRE": [
+        10,
+        0,
+        0
+    ],
+    "BARRIO 20 DE JULIO": [
+        10,
+        10,
+        0
+    ],
+    "BARRIO 3 DE JULIO": [
+        10,
+        20,
+        0
+    ],
+    "BARRIO ACUEDUCTO SAN ANTONIO": [
+        10,
+        30,
+        0
+    ],
+    "BARRIO AGUABLANCA": [
+        10,
+        40,
+        0
+    ],
+    "BARRIO AGUACATAL": [
+        10,
+        50,
+        0
+    ],
+    "BARRIO ALAMEDA": [
+        10,
+        60,
+        0
+    ],
+    "BARRIO ALCAZARES": [
+        10,
+        70,
+        0
+    ],
+    "BARRIO ALFEREZ REAL CAMILO TORRES": [
+        10,
+        80,
+        0
+    ],
+    "BARRIO ALFONSO BARBERENA": [
+        10,
+        90,
+        0
+    ],
+    "BARRIO ALFONSO BONILLA ARAGON": [
+        10,
+        100,
+        0
+    ],
+    "BARRIO ALFONSO LOPEZ ETAPA I": [
+        10,
+        110,
+        0
+    ],
+    "BARRIO ALIANZA": [
+        10,
+        120,
+        0
+    ],
+    "BARRIO ALIRIO MORA BELTRAN": [
+        10,
+        130,
+        0
+    ],
+    "BARRIO ALTO JORDAN": [
+        10,
+        140,
+        0
+    ],
+    "BARRIO ALTO NAPOLES": [
+        10,
+        150,
+        0
+    ],
+    "BARRIO ALTOS DE LOS CHORROS": [
+        10,
+        160,
+        0
+    ],
+    "BARRIO ALTOS DE MENGA": [
+        10,
+        170,
+        0
+    ],
+    "BARRIO ALTOS DE SANTA ISABEL LA MORELIA": [
+        10,
+        180,
+        0
+    ],
+    "BARRIO ANGEL DEL HOGAR": [
+        10,
+        190,
+        0
+    ],
+    "BARRIO ANTONIO NARI\u00d0O": [
+        10,
+        200,
+        0
+    ],
+    "BARRIO ARANJUEZ": [
+        10,
+        210,
+        0
+    ],
+    "BARRIO ARBOLEDA": [
+        10,
+        220,
+        0
+    ],
+    "BARRIO ASPROSOCIAL DIAMANTE": [
+        10,
+        230,
+        0
+    ],
+    "BARRIO ASTURIAS": [
+        10,
+        240,
+        0
+    ],
+    "BARRIO ATANASIO GIRADOT": [
+        10,
+        250,
+        0
+    ],
+    "BARRIO BASE AEREA": [
+        20,
+        0,
+        0
+    ],
+    "BARRIO BELALCAZAR": [
+        20,
+        10,
+        0
+    ],
+    "BARRIO BELEN": [
+        20,
+        20,
+        0
+    ],
+    "BARRIO BELISARIO CAICEDO": [
+        20,
+        30,
+        0
+    ],
+    "BARRIO BELLAVISTA": [
+        20,
+        40,
+        0
+    ],
+    "BARRIO BELLO HORIZONTE": [
+        20,
+        50,
+        0
+    ],
+    "BARRIO BENJAMIN HERRERA": [
+        20,
+        60,
+        0
+    ],
+    "BARRIO BOLIVARIANO": [
+        20,
+        70,
+        0
+    ],
+    "BARRIO BOSQUES DEL LIMONAR": [
+        20,
+        80,
+        0
+    ],
+    "BARRIO BOYACA": [
+        20,
+        90,
+        0
+    ],
+    "BARRIO BRETA\u00d0A": [
+        20,
+        100,
+        0
+    ],
+    "BARRIO BRISAS DE LOS ALAMOS": [
+        20,
+        110,
+        0
+    ],
+    "BARRIO BRISAS DE MAYO": [
+        20,
+        120,
+        0
+    ],
+    "BARRIO BRISAS DEL LIMONAR": [
+        20,
+        130,
+        0
+    ],
+    "BARRIO BUENO MADRID": [
+        20,
+        140,
+        0
+    ],
+    "BARRIO BUENOS AIRES": [
+        20,
+        150,
+        0
+    ],
+    "BARRIO CALDAS": [
+        20,
+        160,
+        0
+    ],
+    "BARRIO CALIMA": [
+        20,
+        170,
+        0
+    ],
+    "BARRIO CALIMIO": [
+        20,
+        180,
+        0
+    ],
+    "BARRIO CALIMIO DESEPAZ": [
+        20,
+        190,
+        0
+    ],
+    "BARRIO CALYPSO": [
+        20,
+        200,
+        0
+    ],
+    "BARRIO CAMINO REAL - J. BORRERO S.": [
+        20,
+        210,
+        0
+    ],
+    "BARRIO CAMINO REAL FUNDADORES": [
+        20,
+        220,
+        0
+    ],
+    "BARRIO CA\u00d0AVARALEJO GUADALUPE": [
+        20,
+        230,
+        0
+    ],
+    "BARRIO CA\u00d0AVERAL": [
+        20,
+        240,
+        0
+    ],
+    "BARRIO CA\u00d0AVERALEJO SEGUROS PATRIA": [
+        20,
+        250,
+        0
+    ],
+    "BARRIO CA\u00d0AVERALES LOS SAMANES": [
+        30,
+        0,
+        0
+    ],
+    "BARRIO CENTENARIO": [
+        30,
+        10,
+        0
+    ],
+    "BARRIO CHAMPAGNAT": [
+        30,
+        20,
+        0
+    ],
+    "BARRIO CHAPINERO": [
+        30,
+        30,
+        0
+    ],
+    "BARRIO CHARCO AZUL": [
+        30,
+        40,
+        0
+    ],
+    "BARRIO CHIMINANGOS ETAPA I": [
+        30,
+        50,
+        0
+    ],
+    "BARRIO CHIMINANGOS ETAPA II": [
+        30,
+        60,
+        0
+    ],
+    "BARRIO CIUDAD 2000": [
+        30,
+        70,
+        0
+    ],
+    "BARRIO CIUDAD CAMPESTRE": [
+        30,
+        80,
+        0
+    ],
+    "BARRIO CIUDAD CAPRI": [
+        30,
+        90,
+        0
+    ],
+    "BARRIO CIUDAD CHIPICHAPE": [
+        30,
+        100,
+        0
+    ],
+    "BARRIO CIUDAD CORDOBA": [
+        30,
+        110,
+        0
+    ],
+    "BARRIO CIUDAD LOS ALAMOS": [
+        30,
+        120,
+        0
+    ],
+    "BARRIO CIUDAD MODELO": [
+        30,
+        130,
+        0
+    ],
+    "BARRIO CIUDAD TALANGA": [
+        30,
+        140,
+        0
+    ],
+    "BARRIO CIUDAD UNIVERSITARIA": [
+        30,
+        150,
+        0
+    ],
+    "BARRIO CIUDADELA CONFANDI": [
+        30,
+        160,
+        0
+    ],
+    "BARRIO CIUDADELA DEL RIO- CVC": [
+        30,
+        170,
+        0
+    ],
+    "BARRIO CIUDADELA FLORALIA": [
+        30,
+        180,
+        0
+    ],
+    "BARRIO CIUDADELA PASOANCHO": [
+        30,
+        190,
+        0
+    ],
+    "BARRIO CLUB CAMPESTRE": [
+        30,
+        200,
+        0
+    ],
+    "BARRIO COLINAS DEL SUR": [
+        30,
+        210,
+        0
+    ],
+    "BARRIO COLSEGUROS LOS ANDES": [
+        30,
+        220,
+        0
+    ],
+    "BARRIO COMPARTIR": [
+        30,
+        230,
+        0
+    ],
+    "BARRIO COMUNEROS I": [
+        30,
+        240,
+        0
+    ],
+    "BARRIO COMUNEROS II": [
+        30,
+        250,
+        0
+    ],
+    "BARRIO CRISTOBAL COLON": [
+        40,
+        0,
+        0
+    ],
+    "BARRIO CUARTELES NAPOLES": [
+        40,
+        10,
+        0
+    ],
+    "BARRIO CUARTO DE LEGUA": [
+        40,
+        20,
+        0
+    ],
+    "BARRIO DEPARTAMENTAL": [
+        40,
+        30,
+        0
+    ],
+    "BARRIO DESEPAZ INVICALI": [
+        40,
+        40,
+        0
+    ],
+    "BARRIO EDUARDO SANTOS": [
+        40,
+        50,
+        0
+    ],
+    "BARRIO EL BOSQUE": [
+        40,
+        60,
+        0
+    ],
+    "BARRIO EL CALVARIO": [
+        40,
+        70,
+        0
+    ],
+    "BARRIO EL CANEY": [
+        40,
+        80,
+        0
+    ],
+    "BARRIO EL CEDRO": [
+        40,
+        90,
+        0
+    ],
+    "BARRIO EL CORTIJO": [
+        40,
+        100,
+        0
+    ],
+    "BARRIO EL DIAMANTE": [
+        40,
+        110,
+        0
+    ],
+    "BARRIO EL DORADO": [
+        40,
+        120,
+        0
+    ],
+    "BARRIO EL GRAN LIMONAR": [
+        40,
+        130,
+        0
+    ],
+    "BARRIO EL GUABAL": [
+        40,
+        140,
+        0
+    ],
+    "BARRIO EL HOYO": [
+        40,
+        150,
+        0
+    ],
+    "BARRIO EL INGENIO I II Y III": [
+        40,
+        160,
+        0
+    ],
+    "BARRIO EL JARDIN": [
+        40,
+        170,
+        0
+    ],
+    "BARRIO EL JORDAN": [
+        40,
+        180,
+        0
+    ],
+    "BARRIO EL LIDO": [
+        40,
+        190,
+        0
+    ],
+    "BARRIO EL LIMONAR": [
+        40,
+        200,
+        0
+    ],
+    "BARRIO EL MORICHAL": [
+        40,
+        210,
+        0
+    ],
+    "BARRIO EL MORTINAL": [
+        40,
+        220,
+        0
+    ],
+    "BARRIO EL NACIONAL": [
+        40,
+        230,
+        0
+    ],
+    "BARRIO EL PARAISO": [
+        40,
+        240,
+        0
+    ],
+    "BARRIO EL PE\u00d0ON": [
+        40,
+        250,
+        0
+    ],
+    "BARRIO EL PILOTO": [
+        50,
+        0,
+        0
+    ],
+    "BARRIO EL POBLADO I": [
+        50,
+        10,
+        0
+    ],
+    "BARRIO EL POBLADO II": [
+        50,
+        20,
+        0
+    ],
+    "BARRIO EL PONDAJE": [
+        50,
+        30,
+        0
+    ],
+    "BARRIO EL PRADO": [
+        50,
+        40,
+        0
+    ],
+    "BARRIO EL RECUERDO": [
+        50,
+        50,
+        0
+    ],
+    "BARRIO EL REFUGIO": [
+        50,
+        60,
+        0
+    ],
+    "BARRIO EL RETIRO": [
+        50,
+        70,
+        0
+    ],
+    "BARRIO EL RODEO": [
+        50,
+        80,
+        0
+    ],
+    "BARRIO EL TREBOL": [
+        50,
+        90,
+        0
+    ],
+    "BARRIO EL TRONCAL": [
+        50,
+        100,
+        0
+    ],
+    "BARRIO EL VALLADO": [
+        50,
+        110,
+        0
+    ],
+    "BARRIO EL VERGEL": [
+        50,
+        120,
+        0
+    ],
+    "BARRIO EUCARISTICO": [
+        50,
+        130,
+        0
+    ],
+    "BARRIO EVARISTO GARCIA": [
+        50,
+        140,
+        0
+    ],
+    "BARRIO FARALLONES": [
+        50,
+        150,
+        0
+    ],
+    "BARRIO FATIMA": [
+        50,
+        160,
+        0
+    ],
+    "BARRIO FENALCO KENNEDY": [
+        50,
+        170,
+        0
+    ],
+    "BARRIO FEPIC0L": [
+        50,
+        180,
+        0
+    ],
+    "BARRIO FLORA INDUSTRIAL": [
+        50,
+        190,
+        0
+    ],
+    "BARRIO FONAVIEMCALI": [
+        50,
+        200,
+        0
+    ],
+    "BARRIO FRANCISCO ELADIO RAMIREZ": [
+        50,
+        210,
+        0
+    ],
+    "BARRIO GRAN LIMONAR - CATAYA": [
+        50,
+        220,
+        0
+    ],
+    "BARRIO GRANADA": [
+        50,
+        230,
+        0
+    ],
+    "BARRIO GUAYACANES": [
+        50,
+        240,
+        0
+    ],
+    "BARRIO GUAYAQUIL": [
+        50,
+        250,
+        0
+    ],
+    "BARRIO GUILLERMO VALENCIA": [
+        60,
+        0,
+        0
+    ],
+    "BARRIO HORIZONTES": [
+        60,
+        10,
+        0
+    ],
+    "BARRIO IGNACIO RENGIFO": [
+        60,
+        20,
+        0
+    ],
+    "BARRIO INDUSTRIA DE LICORES": [
+        60,
+        30,
+        0
+    ],
+    "BARRIO INDUSTRIAL": [
+        60,
+        40,
+        0
+    ],
+    "BARRIO JORGE ELICER GAITAN": [
+        60,
+        50,
+        0
+    ],
+    "BARRIO JORGE ISAACS": [
+        60,
+        60,
+        0
+    ],
+    "BARRIO JORGE ZAWADSKY": [
+        60,
+        70,
+        0
+    ],
+    "BARRIO JOSE HOLGUIN GARCES": [
+        60,
+        80,
+        0
+    ],
+    "BARRIO JOSE MANUEL MARROQUIN I": [
+        60,
+        90,
+        0
+    ],
+    "BARRIO JOSE MANUEL MARROQUIN II": [
+        60,
+        100,
+        0
+    ],
+    "BARRIO JOSE Ma. CORDOBA": [
+        60,
+        110,
+        0
+    ],
+    "BARRIO JUANAMBU": [
+        60,
+        120,
+        0
+    ],
+    "BARRIO JULIO RINCON": [
+        60,
+        130,
+        0
+    ],
+    "BARRIO JUNIN": [
+        60,
+        140,
+        0
+    ],
+    "BARRIO LA ALBORADA": [
+        60,
+        150,
+        0
+    ],
+    "BARRIO LA BASE": [
+        60,
+        160,
+        0
+    ],
+    "BARRIO LA CAMPI\u00d0A": [
+        60,
+        170,
+        0
+    ],
+    "BARRIO LA CASCADA": [
+        60,
+        180,
+        0
+    ],
+    "BARRIO LA ESMERALDA": [
+        60,
+        190,
+        0
+    ],
+    "BARRIO LA ESPERANZA": [
+        60,
+        200,
+        0
+    ],
+    "BARRIO LA FLORA": [
+        60,
+        210,
+        0
+    ],
+    "BARRIO LA FLORESTA": [
+        60,
+        220,
+        0
+    ],
+    "BARRIO LA FORTALEZA": [
+        60,
+        230,
+        0
+    ],
+    "BARRIO LA GRAN COLOMBIA": [
+        60,
+        240,
+        0
+    ],
+    "BARRIO LA HACIENDA": [
+        60,
+        250,
+        0
+    ],
+    "BARRIO LA INDEPENDENCIA": [
+        70,
+        0,
+        0
+    ],
+    "BARRIO LA ISLA": [
+        70,
+        10,
+        0
+    ],
+    "BARRIO LA LEGUA": [
+        70,
+        20,
+        0
+    ],
+    "BARRIO LA LIBERTAD": [
+        70,
+        30,
+        0
+    ],
+    "BARRIO LA MERCED": [
+        70,
+        40,
+        0
+    ],
+    "BARRIO LA PAZ": [
+        70,
+        50,
+        0
+    ],
+    "BARRIO LA PLAYA": [
+        70,
+        60,
+        0
+    ],
+    "BARRIO LA RIVERA I": [
+        70,
+        70,
+        0
+    ],
+    "BARRIO LA SELVA": [
+        70,
+        80,
+        0
+    ],
+    "BARRIO LAS ACACIAS": [
+        70,
+        90,
+        0
+    ],
+    "BARRIO LAS AMERICAS": [
+        70,
+        100,
+        0
+    ],
+    "BARRIO LAS CEIBAS": [
+        70,
+        110,
+        0
+    ],
+    "BARRIO LAS DELICIAS": [
+        70,
+        120,
+        0
+    ],
+    "BARRIO LAS GRANJAS": [
+        70,
+        130,
+        0
+    ],
+    "BARRIO LAS ORQUIDEAS": [
+        70,
+        140,
+        0
+    ],
+    "BARRIO LAUREANO GOMEZ": [
+        70,
+        150,
+        0
+    ],
+    "BARRIO LEON XIII": [
+        70,
+        160,
+        0
+    ],
+    "BARRIO LLERAS CAMARGO": [
+        70,
+        170,
+        0
+    ],
+    "BARRIO LLERAS CINTA LARGA": [
+        70,
+        180,
+        0
+    ],
+    "BARRIO LLERAS RESTREPO": [
+        70,
+        190,
+        0
+    ],
+    "BARRIO LOS ANDES": [
+        70,
+        200,
+        0
+    ],
+    "BARRIO LOS ANDES-LA RIVIERA": [
+        70,
+        210,
+        0
+    ],
+    "BARRIO LOS CAMBULOS": [
+        70,
+        220,
+        0
+    ],
+    "BARRIO LOS CHORROS": [
+        70,
+        230,
+        0
+    ],
+    "BARRIO LOS CONQUISTADORES": [
+        70,
+        240,
+        0
+    ],
+    "BARRIO LOS GUADUALES": [
+        70,
+        250,
+        0
+    ],
+    "BARRIO LOS LAGOS": [
+        80,
+        0,
+        0
+    ],
+    "BARRIO LOS LIBERTADORES": [
+        80,
+        10,
+        0
+    ],
+    "BARRIO LOS LIDERES": [
+        80,
+        20,
+        0
+    ],
+    "BARRIO LOS NARANJOS I": [
+        80,
+        30,
+        0
+    ],
+    "BARRIO LOS NARANJOS II": [
+        80,
+        40,
+        0
+    ],
+    "BARRIO LOS PARQUES": [
+        80,
+        50,
+        0
+    ],
+    "BARRIO LOS PINOS": [
+        80,
+        60,
+        0
+    ],
+    "BARRIO LOS PORTALES - NUEVO REY": [
+        80,
+        70,
+        0
+    ],
+    "BARRIO LOS ROBLES": [
+        80,
+        80,
+        0
+    ],
+    "BARRIO LOURDES": [
+        80,
+        90,
+        0
+    ],
+    "BARRIO MANUEL Ma. BUENAVENTURA": [
+        80,
+        100,
+        0
+    ],
+    "BARRIO MANUELA BELTRAN": [
+        80,
+        110,
+        0
+    ],
+    "BARRIO MANZANARES": [
+        80,
+        120,
+        0
+    ],
+    "BARRIO MARACAIBO": [
+        80,
+        130,
+        0
+    ],
+    "BARRIO MARCO FIDEL SUAREZ": [
+        80,
+        140,
+        0
+    ],
+    "BARRIO MARIANO RAMOS": [
+        80,
+        150,
+        0
+    ],
+    "BARRIO MARIO CORREA RENGIFO": [
+        80,
+        160,
+        0
+    ],
+    "BARRIO MARROQUIN III": [
+        80,
+        170,
+        0
+    ],
+    "BARRIO MAYAPAN LAS VEGAS": [
+        80,
+        180,
+        0
+    ],
+    "BARRIO MELENDEZ": [
+        80,
+        190,
+        0
+    ],
+    "BARRIO MENGA": [
+        80,
+        200,
+        0
+    ],
+    "BARRIO METROPOLITANO DEL NORTE": [
+        80,
+        210,
+        0
+    ],
+    "BARRIO MIRAFLORES": [
+        80,
+        220,
+        0
+    ],
+    "BARRIO MOJICA": [
+        80,
+        230,
+        0
+    ],
+    "BARRIO MUNICIPAL": [
+        80,
+        240,
+        0
+    ],
+    "BARRIO NAPOLES": [
+        80,
+        250,
+        0
+    ],
+    "BARRIO NAVARRO- LA CHANCA": [
+        90,
+        0,
+        0
+    ],
+    "BARRIO NORMANDIA": [
+        90,
+        10,
+        0
+    ],
+    "BARRIO NUEVA FLORESTA": [
+        90,
+        20,
+        0
+    ],
+    "BARRIO NUEVA TEQUENDAMA": [
+        90,
+        30,
+        0
+    ],
+    "BARRIO NUEVO SAN FERNANDO": [
+        90,
+        40,
+        0
+    ],
+    "BARRIO OBRERO": [
+        90,
+        50,
+        0
+    ],
+    "BARRIO OLAYA HERRERA": [
+        90,
+        60,
+        0
+    ],
+    "BARRIO OLIMPICO": [
+        90,
+        70,
+        0
+    ],
+    "BARRIO OMAR TORRIJOS": [
+        90,
+        80,
+        0
+    ],
+    "BARRIO PALERMO": [
+        90,
+        90,
+        0
+    ],
+    "BARRIO PAMPA LINDA": [
+        90,
+        100,
+        0
+    ],
+    "BARRIO PANAMERICANO": [
+        90,
+        110,
+        0
+    ],
+    "BARRIO PARCELACIONES MONACO-LA SULTANA": [
+        90,
+        120,
+        0
+    ],
+    "BARRIO PARCELACIONES PANCE": [
+        90,
+        130,
+        0
+    ],
+    "BARRIO PARQUE DEL AMOR": [
+        90,
+        140,
+        0
+    ],
+    "BARRIO PASEO DE LOS ALMENDROS": [
+        90,
+        150,
+        0
+    ],
+    "BARRIO PASO DEL COMERCIO": [
+        90,
+        160,
+        0
+    ],
+    "BARRIO PASOANCHO": [
+        90,
+        170,
+        0
+    ],
+    "BARRIO PETECUY ETAPA II": [
+        90,
+        180,
+        0
+    ],
+    "BARRIO PETECUY I": [
+        90,
+        190,
+        0
+    ],
+    "BARRIO PETECUY III ETAPA": [
+        90,
+        200,
+        0
+    ],
+    "BARRIO PIZAMOS I": [
+        90,
+        210,
+        0
+    ],
+    "BARRIO PIZAMOS II": [
+        90,
+        220,
+        0
+    ],
+    "BARRIO PIZAMOS III": [
+        90,
+        230,
+        0
+    ],
+    "BARRIO POLVORINES": [
+        90,
+        240,
+        0
+    ],
+    "BARRIO POPULAR": [
+        90,
+        250,
+        0
+    ],
+    "BARRIO PORVENIR": [
+        100,
+        0,
+        0
+    ],
+    "BARRIO POTRERO GRANDE": [
+        100,
+        10,
+        0
+    ],
+    "BARRIO PRADOS DE ORIENTE": [
+        100,
+        20,
+        0
+    ],
+    "BARRIO PRADOS DEL LIMONAR": [
+        100,
+        30,
+        0
+    ],
+    "BARRIO PRADOS DEL NORTE": [
+        100,
+        40,
+        0
+    ],
+    "BARRIO PRADOS DEL SUR": [
+        100,
+        50,
+        0
+    ],
+    "BARRIO PRIMAVERA": [
+        100,
+        60,
+        0
+    ],
+    "BARRIO PRIMERO DE MAYO": [
+        100,
+        70,
+        0
+    ],
+    "BARRIO PRIMITIVO CRESPO": [
+        100,
+        80,
+        0
+    ],
+    "BARRIO PROMOCIONES POPULARES": [
+        100,
+        90,
+        0
+    ],
+    "BARRIO PUEBLO JOVEN": [
+        100,
+        100,
+        0
+    ],
+    "BARRIO PUENTE DEL COMERCIO": [
+        100,
+        110,
+        0
+    ],
+    "BARRIO PUERTAS DEL SOL": [
+        100,
+        120,
+        0
+    ],
+    "BARRIO PUERTO MALLARINO": [
+        100,
+        130,
+        0
+    ],
+    "BARRIO QUINTAS DE DON SIMON": [
+        100,
+        140,
+        0
+    ],
+    "BARRIO REMANSO DE COMFANDI": [
+        100,
+        150,
+        0
+    ],
+    "BARRIO REPUBLICA DE ISRAEL": [
+        100,
+        160,
+        0
+    ],
+    "BARRIO RICARDO BALCAZAR": [
+        100,
+        170,
+        0
+    ],
+    "BARRIO RODRIGO LARA BONILLA": [
+        100,
+        180,
+        0
+    ],
+    "BARRIO SAAVEDRA GALINDO": [
+        100,
+        190,
+        0
+    ],
+    "BARRIO SALOMIA": [
+        100,
+        200,
+        0
+    ],
+    "BARRIO SAN ANTONIO": [
+        100,
+        210,
+        0
+    ],
+    "BARRIO SAN BENITO": [
+        100,
+        220,
+        0
+    ],
+    "BARRIO SAN CARLOS": [
+        100,
+        230,
+        0
+    ],
+    "BARRIO SAN CAYETANO": [
+        100,
+        240,
+        0
+    ],
+    "BARRIO SAN CRISTOBAL": [
+        100,
+        250,
+        0
+    ],
+    "BARRIO SAN FERNANDO VIEJO": [
+        110,
+        0,
+        0
+    ],
+    "BARRIO SAN JOAQUIN": [
+        110,
+        10,
+        0
+    ],
+    "BARRIO SAN JUAN BOSCO": [
+        110,
+        20,
+        0
+    ],
+    "BARRIO SAN JUDAS TADEO I": [
+        110,
+        30,
+        0
+    ],
+    "BARRIO SAN JUDAS TADEO II": [
+        110,
+        40,
+        0
+    ],
+    "BARRIO SAN LUIS": [
+        110,
+        50,
+        0
+    ],
+    "BARRIO SAN LUIS II": [
+        110,
+        60,
+        0
+    ],
+    "BARRIO SAN MARINO": [
+        110,
+        70,
+        0
+    ],
+    "BARRIO SAN NICOLAS": [
+        110,
+        80,
+        0
+    ],
+    "BARRIO SAN PASCUAL": [
+        110,
+        90,
+        0
+    ],
+    "BARRIO SAN PEDRO": [
+        110,
+        100,
+        0
+    ],
+    "BARRIO SAN PEDRO CLAVER": [
+        110,
+        110,
+        0
+    ],
+    "BARRIO SAN VICENTE": [
+        110,
+        120,
+        0
+    ],
+    "BARRIO SANTA ANITA - LA SELVA": [
+        110,
+        130,
+        0
+    ],
+    "BARRIO SANTA BARBARA": [
+        110,
+        140,
+        0
+    ],
+    "BARRIO SANTA ELENA": [
+        110,
+        150,
+        0
+    ],
+    "BARRIO SANTA FE": [
+        110,
+        160,
+        0
+    ],
+    "BARRIO SANTA ISABEL": [
+        110,
+        170,
+        0
+    ],
+    "BARRIO SANTA MONICA": [
+        110,
+        180,
+        0
+    ],
+    "BARRIO SANTA MONICA BELALCAZAR": [
+        110,
+        190,
+        0
+    ],
+    "BARRIO SANTA MONICA POPULAR": [
+        110,
+        200,
+        0
+    ],
+    "BARRIO SANTA RITA": [
+        110,
+        210,
+        0
+    ],
+    "BARRIO SANTA ROSA": [
+        110,
+        220,
+        0
+    ],
+    "BARRIO SANTA TERESITA": [
+        110,
+        230,
+        0
+    ],
+    "BARRIO SANTANDER": [
+        110,
+        240,
+        0
+    ],
+    "BARRIO SANTO DOMINGO": [
+        110,
+        250,
+        0
+    ],
+    "BARRIO SECTOR BOSQUE MUNICIPAL": [
+        120,
+        0,
+        0
+    ],
+    "BARRIO SECTOR LAGUNA DEL PONDAJE": [
+        120,
+        10,
+        0
+    ],
+    "BARRIO SECTOR MELENDEZ": [
+        120,
+        20,
+        0
+    ],
+    "BARRIO SECTOR PATIO BONITO": [
+        120,
+        30,
+        0
+    ],
+    "BARRIO SENA": [
+        120,
+        40,
+        0
+    ],
+    "BARRIO SIETE DE AGOSTO": [
+        120,
+        50,
+        0
+    ],
+    "BARRIO SILOE": [
+        120,
+        60,
+        0
+    ],
+    "BARRIO SIMON BOLIVAR": [
+        120,
+        70,
+        0
+    ],
+    "BARRIO SINDICAL": [
+        120,
+        80,
+        0
+    ],
+    "BARRIO SUCRE": [
+        120,
+        90,
+        0
+    ],
+    "BARRIO SULTANA BERLIN - SAN FRANCISCO": [
+        120,
+        100,
+        0
+    ],
+    "BARRIO TEJARES LOS CRISTALES": [
+        120,
+        110,
+        0
+    ],
+    "BARRIO TERRON COLORADO": [
+        120,
+        120,
+        0
+    ],
+    "BARRIO TIERRA BLANCA": [
+        120,
+        130,
+        0
+    ],
+    "BARRIO ULPIANO LLOREDA": [
+        120,
+        140,
+        0
+    ],
+    "BARRIO UNICENTRO CALI": [
+        120,
+        150,
+        0
+    ],
+    "BARRIO UNIDAD RESIDENCIAL EL COLISEO": [
+        120,
+        160,
+        0
+    ],
+    "BARRIO UNIDAD RESIDENCIAL SANTIAGO DE CA": [
+        120,
+        170,
+        0
+    ],
+    "BARRIO UNION DE VIVIENDA POPULAR": [
+        120,
+        180,
+        0
+    ],
+    "BARRIO URB. COLSEGUROS": [
+        120,
+        190,
+        0
+    ],
+    "BARRIO URB. MILITAR": [
+        120,
+        200,
+        0
+    ],
+    "BARRIO URB. TEQUENDAMA": [
+        120,
+        210,
+        0
+    ],
+    "BARRIO URBANIZACION CIUDAD JARDIN": [
+        120,
+        220,
+        0
+    ],
+    "BARRIO URBANIZACION LA MERCED": [
+        120,
+        230,
+        0
+    ],
+    "BARRIO URBANIZACION LA NUEVA BASE": [
+        120,
+        240,
+        0
+    ],
+    "BARRIO URBANIZACION LILI": [
+        120,
+        250,
+        0
+    ],
+    "BARRIO URBANIZACION NUEVA GRANADA": [
+        130,
+        0,
+        0
+    ],
+    "BARRIO URBANIZACION RIO LILI": [
+        130,
+        10,
+        0
+    ],
+    "BARRIO URIBE URIBE": [
+        130,
+        20,
+        0
+    ],
+    "BARRIO VALLE GRANDE": [
+        130,
+        30,
+        0
+    ],
+    "BARRIO VENEZUELA URB. CA\u00d0AVERALEJO": [
+        130,
+        40,
+        0
+    ],
+    "BARRIO VERSALLES": [
+        130,
+        50,
+        0
+    ],
+    "BARRIO VILLA COLOMBIA": [
+        130,
+        60,
+        0
+    ],
+    "BARRIO VILLA DEL LAGO": [
+        130,
+        70,
+        0
+    ],
+    "BARRIO VILLA DEL PRADO EL GUABITO": [
+        130,
+        80,
+        0
+    ],
+    "BARRIO VILLA DEL SOL": [
+        130,
+        90,
+        0
+    ],
+    "BARRIO VILLA DEL SUR": [
+        130,
+        100,
+        0
+    ],
+    "BARRIO VILLA MERCEDES": [
+        130,
+        110,
+        0
+    ],
+    "BARRIO VILLABLANCA": [
+        130,
+        120,
+        0
+    ],
+    "BARRIO VILLANUEVA": [
+        130,
+        130,
+        0
+    ],
+    "BARRIO VIPASA": [
+        130,
+        140,
+        0
+    ],
+    "BARRIO VISTA HERMOSA": [
+        130,
+        150,
+        0
+    ],
+    "BARRIO YIRA CASTRO": [
+        130,
+        160,
+        0
+    ]
+}

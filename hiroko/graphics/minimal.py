@@ -11,6 +11,7 @@ class MinimalApplication(QtWidgets.QMainWindow):
     def __init__(self, petri_glass, app=QtWidgets.QApplication(sys.argv)):
         super(MinimalApplication, self).__init__()
         self.petri_glass = petri_glass
+
         self.stop_signal = True
         self.current_head = None
         self.app = app
