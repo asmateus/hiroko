@@ -23,6 +23,8 @@ class MinimalApplication(QtWidgets.QMainWindow):
         self.scatter_x = list()
         self.scatter_y = list()
 
+        self.last_data_extension = 0
+
         # Create a map object for the map holder
         self.map = Map(self.petri_glass.getNeighborhoodEnumerator())
 
@@ -48,10 +50,37 @@ class MinimalApplication(QtWidgets.QMainWindow):
             lambda: self.startProcess() if self.stop_signal else self.stopProcess())
 
         self.ui.previous_btn.clicked.connect(
-            lambda: self.startProcess() if self.stop_signal else self.stopProcess())
+            lambda: self.goPrevious())
 
         self.ui.next_btn.clicked.connect(
-            lambda: self.startProcess() if self.stop_signal else self.stopProcess())
+            lambda: self.goNext())
+
+    def goPrevious(self):
+        if not self.stop_signal:
+            self.stopProcess()
+            return
+
+        if self.current_head > 0:
+            self.scatter_x = self.scatter_x[0: len(self.scatter_x) - 2 * self.last_data_extension]
+            self.scatter_y = self.scatter_y[0: len(self.scatter_y) - 2 * self.last_data_extension]
+
+            self.loadEpochData(self.current_head - 1)
+
+    def goNext(self):
+        if not self.stop_signal:
+            self.stopProcess()
+            return
+
+        if not self.prc.isPetriGlassFreezed():
+            if self.petri_glass.getPersistentRuleBook()['method'] == 'genetic':
+                self.prc.triggerEvolutionStep()
+            elif self.petri_glass.getPersistentRuleBook()['method'] == 'random':
+                self.prc.randomEvolutionStep()
+        else:
+            self._endProcess()
+            return
+
+        self.loadEpochData()
 
     def repaintMap(self, map_array):
         h, w, _ = map_array.shape
@@ -82,6 +111,60 @@ class MinimalApplication(QtWidgets.QMainWindow):
         self.ui_print_timer = QBasicTimer()
         self.ui_print_timer.start(0.1, self)
 
+    def loadEpochData(self, epoch=-1):
+        # Obtain data of last epoch by reading the Buffer
+        last_data = OnlineBuffer.getInstance().readBuffer(epoch)
+
+        if last_data is not None and len(last_data):
+            # Determine whether the epoch count of the ui is up to date with the Buffer
+            # If it is, do not do anything, else update plots
+
+            # Reasign head
+            self.current_head = last_data[0]
+
+            # Build data for scatter plot
+            self.last_data_extension = len(last_data[1][1])
+            self.scatter_x.extend([self.current_head] * len(last_data[1][1]))
+            self.scatter_y.extend(last_data[1][1])
+
+            # Build data for bar plot
+            fitness = last_data[1][1]
+            best_index = fitness.index(min(fitness))
+            best = last_data[1][0][best_index]
+            sums = ComposedNaturalEvolution._getCountsPerDay(
+                best,
+                self.petri_glass.getInputPopulationSmall())
+
+            # ***********************************
+            # Set up the plot containers and plot
+            # ***********************************
+
+            # Paint map
+            self.repaintMap(self.map.colorMap(best))
+
+            # Scatter plot
+            max_x, max_y = max(self.scatter_x), max(self.scatter_y)
+            min_x, min_y = min(self.scatter_x), min(self.scatter_y)
+            delta_x, delta_y = (max_x - min_x) / 10, (max_y - min_y) / 10
+
+            self.ui.scatter_plot.setXRange(min_x - delta_x, max_x + delta_x, padding=0)
+            self.ui.scatter_plot.setYRange(min_y - delta_y, max_y + delta_y, padding=0)
+            self.ui.scatter_plot.plot(
+                self.scatter_x,
+                self.scatter_y,
+                pen=None,
+                symbol='o',
+                clear=True)
+
+            # Bar plot
+            max_x, max_y = len(sums), max(sums)
+            min_x, min_y = 0, 0
+            delta_x, delta_y = (max_x - min_x) / 10, (max_y - min_y) / 10
+
+            self.ui.bar_plot.setXRange(min_x - delta_x, max_x + delta_x, padding=0)
+            self.ui.bar_plot.setYRange(min_y - delta_y, max_y + delta_y, padding=0)
+            self.ui.bar_plot.plot(list(range(max_x)), sums, symbol='o', clear=True)
+
     def timerEvent(self, event):
         if self.stop_signal:
             self.ui_print_timer.stop()
@@ -96,57 +179,7 @@ class MinimalApplication(QtWidgets.QMainWindow):
             self._endProcess()
             return
 
-        # Obtain data of last epoch by reading the Buffer
-        last_data = OnlineBuffer.getInstance().readBuffer()
-
-        if last_data is not None and len(last_data):
-            # Determine whether the epoch count of the ui is up to date with the Buffer
-            # If it is, do not do anything, else update plots
-            if self.current_head is None or self.current_head != last_data[0]:
-                # Reasign head
-                self.current_head = last_data[0]
-
-                # Build data for scatter plot
-                self.scatter_x.extend([self.current_head] * len(last_data[1][1]))
-                self.scatter_y.extend(last_data[1][1])
-
-                # Build data for bar plot
-                fitness = last_data[1][1]
-                best_index = fitness.index(min(fitness))
-                best = last_data[1][0][best_index]
-                sums = ComposedNaturalEvolution._getCountsPerDay(
-                    best,
-                    self.petri_glass.getInputPopulationSmall())
-
-                # ***********************************
-                # Set up the plot containers and plot
-                # ***********************************
-
-                # Paint map
-                self.repaintMap(self.map.colorMap(best))
-
-                # Scatter plot
-                max_x, max_y = max(self.scatter_x), max(self.scatter_y)
-                min_x, min_y = min(self.scatter_x), min(self.scatter_y)
-                delta_x, delta_y = (max_x - min_x) / 10, (max_y - min_y) / 10
-
-                self.ui.scatter_plot.setXRange(min_x - delta_x, max_x + delta_x, padding=0)
-                self.ui.scatter_plot.setYRange(min_y - delta_y, max_y + delta_y, padding=0)
-                self.ui.scatter_plot.plot(
-                    self.scatter_x,
-                    self.scatter_y,
-                    pen=None,
-                    symbol='o',
-                    clear=True)
-
-                # Bar plot
-                max_x, max_y = len(sums), max(sums)
-                min_x, min_y = 0, 0
-                delta_x, delta_y = (max_x - min_x) / 10, (max_y - min_y) / 10
-
-                self.ui.bar_plot.setXRange(min_x - delta_x, max_x + delta_x, padding=0)
-                self.ui.bar_plot.setYRange(min_y - delta_y, max_y + delta_y, padding=0)
-                self.ui.bar_plot.plot(list(range(max_x)), sums, symbol='o', clear=True)
+        self.loadEpochData()
 
     def _endProcess(self):
         # We finished, stop saving data. Close Buffer
