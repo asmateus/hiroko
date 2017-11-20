@@ -9,6 +9,10 @@ class ComposedNaturalEvolution:
         self.epoch_count = max_epoch_count
         self.checkpoint_data = dict()
         self.petri_glass = petri_glass
+        self.best_fitness = 1
+        self.best_random = None
+        self.count = 0
+        self.max_count = 300
 
     @staticmethod
     def _calculateStandardDeviation(population, cli_little_info):
@@ -47,14 +51,16 @@ class ComposedNaturalEvolution:
 
         curr_point = individual.pop()
         while len(individual):
-            max_local_distance = 0
-            max_local_distance_idx = 0
+            min_local_distance = 9999999999
+            min_local_distance_idx = 0
             for i in range(len(individual)):
-                if max_local_distance < distance(curr_point, individual[i]):
-                    max_local_distance = distance(curr_point, individual[i])
-                    max_local_distance_idx = i
-            total_distance += max_local_distance
-            curr_point = individual.pop(max_local_distance_idx)
+                if min_local_distance > distance(curr_point, individual[i]):
+                    min_local_distance = distance(curr_point, individual[i])
+                    min_local_distance_idx = i
+            # Punishment function
+            min_local_distance = ((5 - 1) / (10000 - 100)) * (min_local_distance ** 2)
+            total_distance += min_local_distance
+            curr_point = individual.pop(min_local_distance_idx)
 
         return int(total_distance)
 
@@ -67,6 +73,18 @@ class ComposedNaturalEvolution:
                 [self.petri_glass.getMapLocation(i)
                     for i in range(len(population)) if population[i] == pt]
             )
+
+        return total_distance
+
+    def _calculatePopulationDistanceVector(self, population):
+        population_types = set(population)
+        total_distance = list()
+
+        for pt in population_types:
+            total_distance.append(ComposedNaturalEvolution.calculateIndividualDistance(
+                [self.petri_glass.getMapLocation(i)
+                    for i in range(len(population)) if population[i] == pt]
+            ))
 
         return total_distance
 
@@ -91,11 +109,11 @@ class ComposedNaturalEvolution:
         population_fitness = list()
         for population in generation:
             population_fitness.append(
-                0 * normalizeDeviation(
+                0.8 * normalizeDeviation(
                     self._calculateStandardDeviation(
                         population,
                         self.petri_glass.getInputPopulationSmall())) +
-                1 * normalizeDistance(self._calculatePopulationDistance(population))
+                0.2 * normalizeDistance(self._calculatePopulationDistance(population))
             )
 
         return population_fitness
@@ -109,13 +127,13 @@ class ComposedNaturalEvolution:
              * Exchange neighborhoods randomly for this days
              * repeat N times
         '''
-        N = 2
+        N = 4
 
         gen = sorted(zip(generation, fitness), key=lambda t: t[1])
 
         gen = list(list(zip(*gen))[0])
-        gen_save = gen[0:4]
-        gen = gen[4:]
+        gen_save = gen[0:2]
+        gen = gen[2:]
         input_small = self.petri_glass.getInputPopulationSmall()
         avg = [self._calculateAverageRevisions(g, input_small) for g in gen]
 
@@ -128,12 +146,23 @@ class ComposedNaturalEvolution:
         for i in range(N):
             # Exchange information
             for idx1, idx2 in pairs:
-                # Get worst days
+                # Get worst days, according to deviation
                 counts_1 = self._getCountsPerDay(gen[idx1], input_small)
                 counts_2 = self._getCountsPerDay(gen[idx2], input_small)
 
                 counts_1_std = [int(abs(avg[idx1] - c)) for c in counts_1]
                 counts_2_std = [int(abs(avg[idx2] - c)) for c in counts_2]
+
+                # distances_1 = self._calculatePopulationDistanceVector(gen[idx1])
+                # distances_1 = [d // 4 for d in distances_1]
+                # distances_2 = self._calculatePopulationDistanceVector(gen[idx2])
+                # distances_2 = [d // 4 for d in distances_1]
+
+                # criteria_1 = [d + dev for d, dev in zip(distances_1, counts_1_std)]
+                # criteria_2 = [d + dev for d, dev in zip(distances_2, counts_2_std)]
+
+                # worst_1 = criteria_1.index(max(criteria_1)) + 1
+                # worst_2 = criteria_2.index(max(criteria_2)) + 1
 
                 worst_1 = counts_1_std.index(max(counts_1_std)) + 1
                 worst_2 = counts_2_std.index(max(counts_2_std)) + 1
@@ -179,7 +208,8 @@ class ComposedNaturalEvolution:
         obuffer.writeBuffer(generation_count, [generation, fitness, sur_idxs])
 
     def isPetriGlassFreezed(self):
-        return self.epoch_count == self.petri_glass.getCurrentGenerationCount()
+        decision = self.epoch_count == self.petri_glass.getCurrentGenerationCount()
+        return decision or self.count > self.max_count
 
     def triggerEvolutionStep(self):
         generation = self.petri_glass.getCurrentGeneration()
@@ -207,6 +237,12 @@ class ComposedNaturalEvolution:
             generation_fitness,
             survivors_idx)
 
+        if self.best_fitness == min(survivors_fitness):
+            self.count += 1
+        else:
+            self.best_fitness = min(survivors_fitness)
+            self.count = 0
+
         # Generate next generation via cross over of its individuals (the population)
         next_gen_base = self._crossIndividuals(survivors, survivors_fitness)
 
@@ -228,6 +264,9 @@ class ComposedNaturalEvolution:
         while len(generation) != self.petri_glass.getOutputPopulationSize():
             generation.append(self._createMutant())
 
+        if self.best_random is not None:
+            generation[-1] = self.best_random
+
         # Obtain the fitness of each population
         generation_fitness = self._fitGeneration(generation)
         survivors, survivors_fitness = self._purgeGeneration(generation, generation_fitness)
@@ -245,6 +284,8 @@ class ComposedNaturalEvolution:
             generation,
             generation_fitness,
             survivors_idx)
+
+        self.best_random = survivors[survivors_fitness.index(min(survivors_fitness))]
 
         self.petri_glass.setCurrentGeneration(generation)
 

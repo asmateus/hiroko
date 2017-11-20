@@ -80,7 +80,7 @@ class MinimalApplication(QtWidgets.QMainWindow):
             self._endProcess()
             return
 
-        self.loadEpochData()
+        self.loadEpochData(self.current_head + 1)
 
     def repaintMap(self, map_array):
         h, w, _ = map_array.shape
@@ -103,6 +103,10 @@ class MinimalApplication(QtWidgets.QMainWindow):
 
         # Open buffer for data registration
         OnlineBuffer.getInstance().open()
+
+        # Assign the correct number of days
+        self.petri_glass.getPersistentRuleBook()['day-count'] = self.ui.day_count.value()
+        self.petri_glass.spawnNewPopulation()
 
         # Create a composed natural evolution process
         self.prc = ComposedNaturalEvolution(petri_glass=self.petri_glass, max_epoch_count=500)
@@ -141,6 +145,18 @@ class MinimalApplication(QtWidgets.QMainWindow):
 
             # Paint map
             self.repaintMap(self.map.colorMap(best))
+
+            # Set the label texts
+            distance = self.prc._calculatePopulationDistance(best)
+            deviation = self.prc._calculateStandardDeviation(
+                best, self.petri_glass.getInputPopulationSmall())
+
+            self.ui.epoch_counter.setText(
+                'Epochs: ' + str(self.current_head) + '  Idle: ' + str(self.prc.count))
+
+            self.ui.distance_info.setText('Best distance: ' + str(distance))
+            self.ui.deviation_info.setText('Best deviation: ' + str(int(deviation)))
+            self.ui.fitness_info.setText('Fitness Value: ' + str(min(fitness)))
 
             # Scatter plot
             max_x, max_y = max(self.scatter_x), max(self.scatter_y)
